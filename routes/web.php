@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KegiatanController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Kegiatan;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +17,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', [
+        'kegiatan' => Kegiatan::simplePaginate(6)
+    ]);
 });
+
+Route::get('/post/{slug}', function ($slug)
+{
+    return view('content', [
+        'kegiatan' => Kegiatan::where('slug', $slug)->firstOrFail()
+    ]);
+});
+
+Route::resource('admin', KegiatanController::class);
 
 // Route::get('/admin', function () {
 //     return view('admin.dashboard');
 // })->middleware(['auth', 'verified'])->name('admin');
 
-Route::resource('admin', KegiatanController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

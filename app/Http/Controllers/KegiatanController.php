@@ -32,21 +32,24 @@ class KegiatanController extends Controller
         // create validation
         $request->validate([
             'nama' => 'required',
+            'deskripsi' => 'required',
             'tanggal' => 'required',
             'tempat' => 'required',
             'content' => 'required',
             'foto' => 'required',
         ], [
             'nama.required' => 'Nama Kegiatan tidak boleh kosong',
+            'deskripsi.required' => 'Deskripsi Kegiatan tidak boleh kosong',
             'tanggal.required' => 'Tanggal Kegiatan tidak boleh kosong',
             'tempat.required' => 'Tempat Kegiatan tidak boleh kosong',
-            'content.required' => 'Deskripsi Kegiatan tidak boleh kosong',
+            'content.required' => 'Konten Kegiatan tidak boleh kosong',
             'foto.required' => 'Foto Kegiatan tidak boleh kosong',
         ]);
 
         // create data
         $kegiatan = new Kegiatan;
         $kegiatan->nama = $request->nama;
+        $kegiatan->deskripsi = $request->deskripsi;
         $kegiatan->tanggal = $request->tanggal;
         $kegiatan->tempat = $request->tempat;
         $kegiatan->content = $request->content;
@@ -90,19 +93,22 @@ class KegiatanController extends Controller
         // create validation
         $request->validate([
             'nama' => 'required',
+            'deskripsi' => 'required',
             'tanggal' => 'required',
             'tempat' => 'required',
             'content' => 'required',
         ], [
             'nama.required' => 'Nama Kegiatan tidak boleh kosong',
+            'deskripsi.required' => 'Deskripsi Kegiatan tidak boleh kosong',
             'tanggal.required' => 'Tanggal Kegiatan tidak boleh kosong',
             'tempat.required' => 'Tempat Kegiatan tidak boleh kosong',
-            'content.required' => 'Deskripsi Kegiatan tidak boleh kosong',
+            'content.required' => 'Konten Kegiatan tidak boleh kosong',
         ]);
 
         // create data
         $kegiatan = Kegiatan::find($id);
         $kegiatan->nama = $request->nama;
+        $kegiatan->deskripsi = $request->deskripsi;
         $kegiatan->tanggal = $request->tanggal;
         $kegiatan->tempat = $request->tempat;
         $kegiatan->content = $request->content;

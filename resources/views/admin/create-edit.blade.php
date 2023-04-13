@@ -30,6 +30,19 @@
             </label>
             {{-- end input judul --}}
 
+            {{-- input deskripsi --}}
+            <label class="label">
+                <span class="label-text">Deskripsi singkat kegiatan</span>
+            </label>
+            <textarea name="deskripsi" class="textarea h-20 textarea-bordered w-full"
+                placeholder="tuliskan deskripsi kurang dari 40 kata...">{{ old('deskripsi', isset($kegiatan) ? $kegiatan->deskripsi : '') }}</textarea>
+            <label class="label">
+                @error('deskripsi')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+            </label>
+            {{-- end input deskripsi --}}
+
             {{-- input gambar --}}
             <label class="label">
                 <span class="label-text">Pilih gambar thumbnail</span>
