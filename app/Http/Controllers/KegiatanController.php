@@ -74,9 +74,12 @@ class KegiatanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Kegiatan $kegiatan)
+    public function edit(String $id)
     {
-        //
+        return view('admin.create', [
+            'kegiatan' => Kegiatan::find($id),
+            'title' => 'Edit'
+        ]);
     }
 
     /**

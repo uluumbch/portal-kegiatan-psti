@@ -6,7 +6,13 @@
     </x-slot>
     <x-head.tinymce-config />
 
-    <form method="post" action="{{ route('admin.store') }}" enctype="multipart/form-data" class="py-12">
+    {{-- @dd($kegiatan) --}}
+
+    <form method="post" action="{{ isset($title) ? route('admin.update', $kegiatan) : route('admin.store') }}"
+        enctype="multipart/form-data" class="py-12">
+        @if (isset($title))
+            @method('PUT')
+        @endif
         @csrf
         <div class="form-control w-full ">
 
@@ -15,7 +21,8 @@
                 <span class="label-text">Masukkan judul</span>
             </label>
             <input type="text" name="nama" placeholder="masukkan judul disini..."
-                class="input input-bordered w-full" value="{{ old('nama') }}" />
+                class="input input-bordered w-full"
+                value="{{ old('nama', isset($kegiatan) ? $kegiatan->nama : '') }}" />
             <label class="label">
                 @error('nama')
                     <span class="text-red-500">{{ $message }}</span>
@@ -40,7 +47,7 @@
                 <span class="label-text">Tanggal kegiatan</span>
             </label>
             <input type="datetime-local" name="tanggal" class="input input-bordered w-full"
-                value="{{ old('tanggal') }}" />
+                value="{{ old('tanggal', isset($kegiatan) ? date('Y-m-d\TH:i:s', strtotime($kegiatan->tanggal)) : '') }}" />
             <label class="label">
                 @error('tanggal')
                     <span class="text-red-500">{{ $message }}</span>
@@ -52,7 +59,8 @@
             <label class="label">
                 <span class="label-text">Tempat kegiatan</span>
             </label>
-            <input type="text" name="tempat" class="input input-bordered w-full " value="{{ old('tempat') }}" />
+            <input type="text" name="tempat" class="input input-bordered w-full "
+                value="{{ old('tempat', isset($kegiatan) ? $kegiatan->tempat : '') }}" />
             <label class="label">
                 @error('tempat')
                     <span class="text-red-500">{{ $message }}</span>
@@ -64,7 +72,7 @@
             {{-- <trix-editor input="x" class=""></trix-editor> --}}
             {{-- <div class="trix-content"></div> --}}
             {{-- end input content --}}
-            <textarea name="content" id="myeditorinstance">{{ old('content') }}</textarea>
+            <textarea name="content" id="myeditorinstance">{{ old('content', isset($kegiatan) ? $kegiatan->content : '') }}</textarea>
             <label class="label">
                 @error('content')
                     <span class="text-red-500">{{ $message }}</span>

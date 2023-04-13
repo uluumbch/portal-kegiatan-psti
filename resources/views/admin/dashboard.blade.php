@@ -12,18 +12,16 @@
                     {{ __("You're logged in!") }}
                 </div> --}}
                 <div class="flex justify-end py-2">
-                    <div class="btn btn-primary gap-2">
+                    <a class="btn btn-primary gap-2" href="{{ route('admin.create') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <a href="{{ route('admin.create') }}">
-                            Buat pengumuman
-                        </a>
-                    </div>
+                        Buat pengumuman
+                    </a>
                 </div>
-                <div class=" w-full">
+                <div class="w-full">
                     <table class="table w-full">
                         <!-- head -->
                         <thead>
@@ -34,9 +32,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- row 1 -->
                             <tr>
-
                                 <td class="w-1/3">
                                     <div class="flex items-center space-x-3">
                                         <div class="avatar">
@@ -61,7 +57,32 @@
                                     <button class="btn btn-error btn-sm text-error-content">hapus</button>
                                 </th>
                             </tr>
-                            <!-- row 2 -->
+                            @foreach ($kegiatan as $item)
+                                <tr>
+                                    <td class="w-1/3">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="avatar">
+                                                <div class="mask mask-squircle w-12 h-12">
+                                                    <img src="{{ asset('foto-kegiatan/' . $item->foto) }}"
+                                                        alt="Avatar Tailwind CSS Component" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="font-bold break-words whitespace-normal">{{ $item->nama }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="w-2/3 break-words whitespace-normal">
+                                        {{ $item->content }}
+                                    </td>
+                                    <th>
+                                        <a href="{{ route('admin.edit', $item) }}"
+                                            class="btn btn-secondary text-secondary-content btn-sm">edit</a>
+                                        <button class="btn btn-error btn-sm text-error-content">hapus</button>
+                                    </th>
+                                </tr>
+                            @endforeach
 
                         </tbody>
                         <!-- foot -->
