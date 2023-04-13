@@ -21,7 +21,7 @@ class KegiatanController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        return view('admin.create-edit');
     }
 
     /**
@@ -76,7 +76,7 @@ class KegiatanController extends Controller
      */
     public function edit(String $id)
     {
-        return view('admin.create', [
+        return view('admin.create-edit', [
             'kegiatan' => Kegiatan::find($id),
             'title' => 'Edit'
         ]);
@@ -85,16 +85,46 @@ class KegiatanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Kegiatan $kegiatan)
+    public function update(Request $request, String $id)
     {
-        //
+        // create validation
+        $request->validate([
+            'nama' => 'required',
+            'tanggal' => 'required',
+            'tempat' => 'required',
+            'content' => 'required',
+        ], [
+            'nama.required' => 'Nama Kegiatan tidak boleh kosong',
+            'tanggal.required' => 'Tanggal Kegiatan tidak boleh kosong',
+            'tempat.required' => 'Tempat Kegiatan tidak boleh kosong',
+            'content.required' => 'Deskripsi Kegiatan tidak boleh kosong',
+        ]);
+
+        // create data
+        $kegiatan = Kegiatan::find($id);
+        $kegiatan->nama = $request->nama;
+        $kegiatan->tanggal = $request->tanggal;
+        $kegiatan->tempat = $request->tempat;
+        $kegiatan->content = $request->content;
+        
+        // move foto to public folder in subfolder foto-kegiatan, and prevent file name from being duplicated
+        if($request->file('foto')){
+            $nama_foto = time()."". $request->file('foto')->getClientOriginalName();
+            $request->file('foto')->move(public_path('foto-kegiatan'), $nama_foto);
+            $kegiatan['foto'] = $nama_foto;
+        }
+
+        $kegiatan->save();
+
+        return redirect('/admin')->with('status', 'Kegiatan berhasil diubah!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kegiatan $kegiatan)
+    public function destroy(String $id)
     {
-        //
+        Kegiatan::destroy($id);
+        return redirect('/admin')->with('status', 'Kegiatan berhasil dihapus!');
     }
 }

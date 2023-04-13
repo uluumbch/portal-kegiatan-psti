@@ -32,31 +32,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="w-1/3">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="avatar">
-                                            <div class="mask mask-squircle w-12 h-12">
-                                                <img src="https://daisyui.com/tailwind-css-component-profile-2@56w.png"
-                                                    alt="Avatar Tailwind CSS Component" />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="font-bold break-words whitespace-normal">Lorem ipsum dolor sit
-                                                amet consectetur adipisicing elit. Omnis, nesciunt!</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="w-2/3 break-words whitespace-normal">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique magni quam
-                                    accusantium rerum, dolorem vitae minus temporibus vero doloribus labore nihil quidem
-                                    possimus, delectus vel consequuntur magnam nesciunt provident laboriosam?
-                                </td>
-                                <th>
-                                    <button class="btn btn-secondary text-secondary-content btn-sm">edit</button>
-                                    <button class="btn btn-error btn-sm text-error-content">hapus</button>
-                                </th>
-                            </tr>
                             @foreach ($kegiatan as $item)
                                 <tr>
                                     <td class="w-1/3">
@@ -76,10 +51,15 @@
                                     <td class="w-2/3 break-words whitespace-normal">
                                         {{ $item->content }}
                                     </td>
-                                    <th>
+                                    <th class="flex gap-1">
                                         <a href="{{ route('admin.edit', $item) }}"
                                             class="btn btn-secondary text-secondary-content btn-sm">edit</a>
-                                        <button class="btn btn-error btn-sm text-error-content">hapus</button>
+                                        <form action="{{ route('admin.destroy', $item) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                class="btn btn-error btn-sm text-error-content">hapus</button>
+                                        </form>
                                     </th>
                                 </tr>
                             @endforeach
@@ -88,7 +68,7 @@
                         <!-- foot -->
                         <tfoot>
                             <tr>
-                                <th></th>
+                                <th>Kegiatan</th>
                                 <th>Deskripsi</th>
                                 <th></th>
                             </tr>
