@@ -3,13 +3,13 @@
     <div class="flex flex-col w-full">
         <div class="mt-2 card bg-base-300 rounded-box place-items-center">
             <h2 class="text-center font-bold text-2xl">{{ $kegiatan['nama'] }}</h2>
-            <figure><img class="max-w-4xl" src="{{ asset('foto-kegiatan/' . $kegiatan['foto']) }}"
+            <figure><img class="lg:max-w-4xl max-md" src="{{ asset('foto-kegiatan/' . $kegiatan['foto']) }}"
                     alt="{{ $kegiatan['nama'] }}" />
             </figure>
             <p class="text-xl py-4 max-w-lg text-center">
                 {{ $kegiatan['deskripsi'] }}
             </p>
-            <div class="flex justify-center items-center py-2">
+            <div class="flex justify-center items-center flex-col lg:flex-row gap-y-2 py-2">
                 <button class="flex gap-1 btn justify-evenly mx-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-7 h-7">
@@ -26,7 +26,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                     </svg>
-                    <p class="my-auto text-lg">$kegiatan['tempat']</p>
+                    <p class="my-auto text-lg">{{ $kegiatan['tempat'] }}</p>
                 </button>
 
             </div>
