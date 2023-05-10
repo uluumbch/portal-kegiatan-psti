@@ -1,0 +1,9 @@
+.bg-myimage{
+    /* background-image: url('/resources/img/landing.jpg'); */
+    /* gradient bg color to left */
+    background: linear-gradient( rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/resources/img/landing.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}

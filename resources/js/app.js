@@ -1,4 +1,5 @@
 import './bootstrap';
+import '../css/mybg.css';
 
 import Alpine from 'alpinejs';
 
