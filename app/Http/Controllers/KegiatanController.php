@@ -69,9 +69,23 @@ class KegiatanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Kegiatan $kegiatan)
+    public function show($slug)
     {
-        //
+        $shareButton = \Share::page(
+            route('post.show', $slug),
+            'PSTI FT ULM Memiliki Kegiatan baru. Lihat disini : ' . Kegiatan::where('slug', $slug)->firstOrFail()->nama
+        )
+            ->facebook()
+            ->twitter()
+            ->linkedin()
+            ->whatsapp()
+            ->telegram()
+            ->getRawLinks();
+
+        return view('content', [
+                    'kegiatan' => Kegiatan::where('slug', $slug)->firstOrFail(),
+                    'shareComponent' => $shareButton
+                ]);
     }
 
     /**

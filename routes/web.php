@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\SocialShareButtonsController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Kegiatan;
 
@@ -22,12 +23,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/post/{slug}', function ($slug)
-{
-    return view('content', [
-        'kegiatan' => Kegiatan::where('slug', $slug)->firstOrFail()
-    ]);
-});
+// Route::get('/post/{slug}', function ($slug)
+// {
+//     return view('content', [
+//         'kegiatan' => Kegiatan::where('slug', $slug)->firstOrFail()
+//     ]);
+// });
+
+Route::get('/post/{slug}', [KegiatanController::class, 'show'])->name('post.show');
+
+Route::get('/share', [SocialShareButtonsController::class, 'share'])->name('share');
 
 Route::resource('admin', KegiatanController::class);
 

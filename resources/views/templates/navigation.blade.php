@@ -20,6 +20,7 @@
                     <li><a href="{{ asset('/') }}">Beranda</a></li>
                     <li><a href="{{ asset('/#event') }}">Kegiatan</a></li>
                     <li><a>Tentang Kami</a></li>
+                    <button class="btn btn-primary"><a href="{{ asset('/register') }}">Register</a></button>
                 </ul>
             </div>
         </div>
