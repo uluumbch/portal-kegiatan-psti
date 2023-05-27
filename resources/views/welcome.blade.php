@@ -10,7 +10,7 @@
                     Jangan Sampai Ketinggalan Informasi Tentang Kegiatan Menarik di PSTI! Dengan PortIKe PSTI Selalu
                     Dapatkan Informasi Terbaru Event yang Akan Diadakan!
                 </p>
-                <button class="btn btn-primary">Eksplor Event</button>
+                <button class="btn btn-primary" id="eksplor">Eksplor Event</button>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
             
 
             @foreach ($kegiatan as $item)
-                <div class="card card-compact w-96 bg-base-100 shadow-xl">
+                <div class="card card-compact w-96 bg-base-300 shadow-xl">
                     <figure><img src="{{ asset('foto-kegiatan/' . $item['foto']) }}" alt="{{ $item['nama'] }}" />
                     </figure>
                     <div class="card-body">
@@ -62,4 +62,13 @@
             {{ $kegiatan->links() }}
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $("#eksplor").click(function() {
+                $('html, body').animate({
+                    scrollTop: $("#event").offset().top
+                }, 1000);
+            });
+        })
+    </script>
 @endsection
