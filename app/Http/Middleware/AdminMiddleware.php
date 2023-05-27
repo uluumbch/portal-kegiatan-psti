@@ -16,7 +16,8 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user() && $request->user()->role !== \App\Models\User::ROLE_ADMIN) {
-            abort(403);
+            // redirect to named route user.index
+            return redirect()->route('user.index');
         }
 
         return $next($request);
