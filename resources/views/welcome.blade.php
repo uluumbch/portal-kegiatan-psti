@@ -21,7 +21,7 @@
         <h2 class="text-center my-5 font-bold text-2xl" id="event">Semua Event</h2>
         {{-- card holder --}}
         <div class=" flex justify-center gap-4 basis-1 flex-wrap">
-            
+
 
             @foreach ($kegiatan as $item)
                 <div class="card card-compact w-96 bg-base-100 shadow-xl">

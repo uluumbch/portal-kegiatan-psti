@@ -53,7 +53,7 @@ class KegiatanController extends Controller
         $kegiatan->tanggal = $request->tanggal;
         $kegiatan->tempat = $request->tempat;
         $kegiatan->content = $request->content;
-        
+
         // move foto to public folder in subfolder foto-kegiatan, and prevent file name from being duplicated
         $nama_foto = time()."". $request->file('foto')->getClientOriginalName();
         $request->file('foto')->move(public_path('foto-kegiatan'), $nama_foto);
@@ -126,7 +126,7 @@ class KegiatanController extends Controller
         $kegiatan->tanggal = $request->tanggal;
         $kegiatan->tempat = $request->tempat;
         $kegiatan->content = $request->content;
-        
+
         // move foto to public folder in subfolder foto-kegiatan, and prevent file name from being duplicated
         if($request->file('foto')){
             $nama_foto = time()."". $request->file('foto')->getClientOriginalName();

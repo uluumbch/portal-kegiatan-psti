@@ -33,7 +33,7 @@ Route::get('/', function () {
 
 Route::get('/post/{slug}', [KegiatanController::class, 'show'])->name('post.show');
 
-Route::get('/share', [SocialShareButtonsController::class, 'share'])->name('share');
+// Route::get('/share', [SocialShareButtonsController::class, 'share'])->name('share');
 
 // create route with admin middleware for KegiatanController resource
 Route::middleware('auth', 'admin')->group(function () {
