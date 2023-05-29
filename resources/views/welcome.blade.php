@@ -25,7 +25,7 @@
 
             @foreach ($kegiatan as $item)
                 <div class="card card-compact w-96 bg-base-300 shadow-xl">
-                    <figure><img src="{{ asset('foto-kegiatan/' . $item['foto']) }}" alt="{{ $item['nama'] }}" />
+                    <figure><img src="data:image/jpeg;base64,{{ $item['foto'] }}" alt="{{ $item['nama'] }}" />
                     </figure>
                     <div class="card-body">
                         <h2 class="card-title">{{ $item['nama'] }}</h2>

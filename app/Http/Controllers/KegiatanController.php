@@ -53,11 +53,14 @@ class KegiatanController extends Controller
         $kegiatan->tanggal = $request->tanggal;
         $kegiatan->tempat = $request->tempat;
         $kegiatan->content = $request->content;
+        // add kegiatan->foto to database as base64 image
+        $kegiatan->foto = base64_encode(file_get_contents($request->file('foto')->getRealPath()));
+        dd($kegiatan->foto);
         
         // move foto to public folder in subfolder foto-kegiatan, and prevent file name from being duplicated
-        $nama_foto = time()."". $request->file('foto')->getClientOriginalName();
-        $request->file('foto')->move(public_path('foto-kegiatan'), $nama_foto);
-        $kegiatan['foto'] = $nama_foto;
+        // $nama_foto = time()."". $request->file('foto')->getClientOriginalName();
+        // $request->file('foto')->move(public_path('foto-kegiatan'), $nama_foto);
+        // $kegiatan['foto'] = $nama_foto;
 
         $kegiatan->save();
 
@@ -84,7 +87,8 @@ class KegiatanController extends Controller
 
         return view('content', [
                     'kegiatan' => Kegiatan::where('slug', $slug)->firstOrFail(),
-                    'shareComponent' => $shareButton
+                    'shareComponent' => $shareButton,
+                    'title' => Kegiatan::where('slug', $slug)->firstOrFail()->nama
                 ]);
     }
 
@@ -127,11 +131,8 @@ class KegiatanController extends Controller
         $kegiatan->tempat = $request->tempat;
         $kegiatan->content = $request->content;
         
-        // move foto to public folder in subfolder foto-kegiatan, and prevent file name from being duplicated
         if($request->file('foto')){
-            $nama_foto = time()."". $request->file('foto')->getClientOriginalName();
-            $request->file('foto')->move(public_path('foto-kegiatan'), $nama_foto);
-            $kegiatan['foto'] = $nama_foto;
+            $kegiatan->foto = base64_encode(file_get_contents($request->file('foto')->getRealPath()));
         }
 
         $kegiatan->save();

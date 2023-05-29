@@ -18,7 +18,8 @@ return new class extends Migration
             $table->datetime('tanggal');
             $table->string('tempat');
             $table->text('content');
-            $table->string('foto');
+            // create table for storing base64 image
+            $table->binary('foto');
             $table->string('slug');
             // $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kegiatans');
+        Schema::dropIfExists('kegiatan');
     }
 };
