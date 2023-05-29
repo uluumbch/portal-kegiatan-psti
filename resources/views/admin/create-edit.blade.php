@@ -33,17 +33,25 @@
             {{-- input deskripsi --}}
             <label class="label">
                 <span class="label-text">Deskripsi singkat kegiatan</span>
+                {{-- <span class="label-text-alt">100 kata tersisa</span> --}}
             </label>
             <textarea name="deskripsi" class="textarea h-20 textarea-bordered w-full"
-                placeholder="tuliskan deskripsi kurang dari 40 kata...">{{ old('deskripsi', isset($kegiatan) ? $kegiatan->deskripsi : '') }}</textarea>
+                placeholder="tuliskan deskripsi kurang dari 100 kata...">{{ old('deskripsi', isset($kegiatan) ? $kegiatan->deskripsi : '') }}</textarea>
             <label class="label">
-                @error('deskripsi')
-                    <span class="text-red-500">{{ $message }}</span>
-                @enderror
+                <span class="label-text">
+                    @error('deskripsi')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </span>
+                <span class="label-text-alt" id="sisa-kata">100 kata tersisa</span>
             </label>
             {{-- end input deskripsi --}}
 
             {{-- input gambar --}}
+            @if (isset($title))
+            <img src="data:image/jpeg;base64,{{ $kegiatan->foto }}" class="w-1/4 h-1/4" alt=""/>
+            @endif
+
             <label class="label">
                 <span class="label-text">Pilih gambar thumbnail</span>
             </label>
@@ -82,8 +90,6 @@
             {{-- end input tanggal --}}
 
             {{-- input content --}}
-            {{-- <trix-editor input="x" class=""></trix-editor> --}}
-            {{-- <div class="trix-content"></div> --}}
             {{-- end input content --}}
             <textarea name="content" id="myeditorinstance">{{ old('content', isset($kegiatan) ? $kegiatan->content : '') }}</textarea>
             <label class="label">
@@ -94,4 +100,37 @@
             <button class="btn btn-primary my-4" type="submit">BUAT</button>
         </div>
     </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // get value from textarea with name deskripsi
+            let deskripsi = document.querySelector('textarea[name="deskripsi"]');
+            deskripsi.addEventListener('input', function() {
+                // get value from textarea spilt by space or new line 
+                let value = deskripsi.value.split(/[\s\n]+/);
+                // get length of value
+                let length = value.length;
+                // get element with id sisa-kata
+                let sisaKata = document.getElementById('sisa-kata');
+                // get value from element sisa-kata
+                let sisaKataNumberValue = sisaKata.innerText.split(' ')[0];
+                sisaKata.innerText = `${100 - length} kata tersisa`;
+                // if length of value more than 100
+                if (length > 99) {
+                    // disable textare
+                    // set value of element sisa-kata to 0 kata tersisa
+                    sisaKata.innerText = `0 kata tersisa`;
+                    // add class text-red-500 to element sisa-kata
+                    sisaKata.classList.add('text-red-500');
+                    // add border red to textarea
+                    deskripsi.classList.add('border-red-500');
+                    
+                }else{
+                    // remove class text-red-500 from element sisa-kata
+                    sisaKata.classList.remove('text-red-500');
+                    // remove border red from textarea
+                    deskripsi.classList.remove('border-red-500');
+                }
+            });
+        });
+    </script>
 </x-app-layout>

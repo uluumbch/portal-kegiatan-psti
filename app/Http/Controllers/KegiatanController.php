@@ -110,7 +110,7 @@ class KegiatanController extends Controller
         // create validation
         $request->validate([
             'nama' => 'required',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|max:100',
             'tanggal' => 'required',
             'tempat' => 'required',
             'content' => 'required',
