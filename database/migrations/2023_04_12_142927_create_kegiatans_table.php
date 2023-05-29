@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -14,16 +15,16 @@ return new class extends Migration
         Schema::create('kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('deskripsi');
+            $table->text('deskripsi');
             $table->datetime('tanggal');
             $table->string('tempat');
             $table->text('content');
-            // create table for storing base64 image
-            $table->binary('foto');
             $table->string('slug');
             // $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE kegiatan ADD foto LONGBLOB AFTER content');
     }
 
     /**
