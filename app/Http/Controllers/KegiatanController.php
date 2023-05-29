@@ -55,7 +55,6 @@ class KegiatanController extends Controller
         $kegiatan->content = $request->content;
         // add kegiatan->foto to database as base64 image
         $kegiatan->foto = base64_encode(file_get_contents($request->file('foto')->getRealPath()));
-        dd($kegiatan->foto);
         
         // move foto to public folder in subfolder foto-kegiatan, and prevent file name from being duplicated
         // $nama_foto = time()."". $request->file('foto')->getClientOriginalName();
