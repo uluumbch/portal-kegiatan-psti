@@ -3,7 +3,7 @@
     <div class="flex flex-col w-full">
         <div class="mt-2 card bg-base-300 rounded-box place-items-center">
             <h2 class="text-center font-bold text-2xl">{{ $kegiatan['nama'] }}</h2>
-            <figure><img class="lg:max-w-4xl max-md" src="{{ asset('foto-kegiatan/' . $kegiatan['foto']) }}"
+            <figure><img class="lg:max-w-4xl max-md" src="data:image/jpeg;base64, {{$kegiatan['foto'] }}"
                     alt="{{ $kegiatan['nama'] }}" />
             </figure>
             <p class="text-xl py-4 max-w-lg text-center">
@@ -32,23 +32,6 @@
             </div>
         </div>
         <div class="divider text-center">Tentang Kegiatan</div>
-        {{-- <div class="grid card bg-base-300 rounded-box place-items-center px-10"> --}}
-        {{-- Acara ini sepenuhnya GRATIS dan akan diselenggarakan hari Selasa, 18 April 2023 pukul 15.00 - 16.30 WIB Live di
-            YouTube Dicoding Indonesia (jangan lupa klik tanda lonceng untuk pengingat).
-
-            Ingin mendapatkan beasiswa belajar di learning path Back-End dan DevOps Engineer? Daftar sekarang di
-            aws.dicoding.com
-
-            Sudah siap menghadapi tantangan keamanan di dunia komputasi awan?
-
-            Pada event ini, kita akan berdiskusi tentang ancaman keamanan yang dihadapi dalam komputasi awan, serta praktik
-            terbaik untuk menghadapinya. Para pembicara ahli akan berbagi pengalaman, kiat, dan solusi inovatif dalam
-            manajemen risiko, proteksi data, manajemen identitas, serta teknologi keamanan cloud terbaru yang dapat
-            digunakan untuk menjaga integritas, kerahasiaan, dan ketersediaan data kamu. Jadi kamu bisa mengembangkan
-            aplikasimu dengan lebih baik lagi.
-
-            Bergabunglah di AWS x Dicoding LIVE dan tingkatkan pemahamanmu dalam menghadapi tantangan keamanan di dunia
-            cloud computing. --}}
 
 
         <article class="w-full prose px-11 lg:prose-xl dark:prose-invert">
@@ -57,31 +40,6 @@
         </article>
         <div class="">
             <div class="divider text-center">Share Kegiatan</div>
-            {{-- {{ dd($shareComponent['facebook'])  }} --}}
-            {{-- <div class=" flex flex-wrap justify-center gap-4 py-5">
-                <a class="border-2 duration-200 ease inline-flex items-center mb-1 mr-1 transition p-3 rounded-lg text-white border-blue-600 bg-blue-600 hover:bg-blue-700 hover:border-blue-700" target="_blank" rel="noopener" href="{{ $shareComponent['facebook']  }}" aria-label="Share on Facebook">
-                  <svg aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6">
-                    <title>Facebook</title>
-                    <path d="M379 22v75h-44c-36 0-42 17-42 41v54h84l-12 85h-72v217h-88V277h-72v-85h72v-62c0-72 45-112 109-112 31 0 58 3 65 4z">
-                    </path>
-                  </svg>
-                </a>
-                <a class="border-2 duration-200 ease inline-flex items-center mb-1 mr-1 transition p-3 rounded-lg text-white border-blue-600 bg-blue-600 hover:bg-blue-700 hover:border-blue-700" target="_blank" rel="noopener" href="{{ $shareComponent['twitter']  }}" aria-label="Share on Twitter">
-                  <svg aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6">
-                    <title>Twitter</title>
-                    <path d="m459 152 1 13c0 139-106 299-299 299-59 0-115-17-161-47a217 217 0 0 0 156-44c-47-1-85-31-98-72l19 1c10 0 19-1 28-3-48-10-84-52-84-103v-2c14 8 30 13 47 14A105 105 0 0 1 36 67c51 64 129 106 216 110-2-8-2-16-2-24a105 105 0 0 1 181-72c24-4 47-13 67-25-8 24-25 45-46 58 21-3 41-8 60-17-14 21-32 40-53 55z">
-                    </path>
-                  </svg>
-                </a>
-                <a class="border-2 duration-200 ease inline-flex items-center mb-1 mr-1 transition p-3 rounded-lg text-white border-blue-600 bg-blue-600 hover:bg-blue-700 hover:border-blue-700" target="_blank" rel="noopener" href="{{ $shareComponent['linkedin']  }}" aria-label="Share on Linkedin">
-                  <svg aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6">
-                    <title>Linkedin</title>
-                    <path d="M136 183v283H42V183h94zm6-88c1 27-20 49-53 49-32 0-52-22-52-49 0-28 21-49 53-49s52 21 52 49zm333 208v163h-94V314c0-38-13-64-47-64-26 0-42 18-49 35-2 6-3 14-3 23v158h-94V183h94v41c12-20 34-48 85-48 62 0 108 41 108 127z">
-                    </path>
-                  </svg>
-                </a>
-              </div> --}}
-
               <div class="sharing-buttons flex flex-wrap justify-center gap-4 py-5">
                 <a class="border-2 duration-200 ease inline-flex items-center mb-1 mr-1 transition py-3 px-5 rounded-lg btn btn-primary" target="_blank" rel="noopener" href="{{ $shareComponent['facebook']  }}" aria-label="Share on Facebook" draggable="false">
                   <svg aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6">

@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ Auth::user()->role == 'admin' ? route('admin.profile.update') : route('user.profile.update') }}" class="mt-6 space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
         @csrf
         @method('patch')
 

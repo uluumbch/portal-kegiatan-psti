@@ -6,6 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     {{-- if login as admin route to admin else to user --}}
+                    
                     @if (Auth::user()->role == 'admin')
                         <a href="{{ route('admin.index') }}">
                             <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
@@ -59,9 +60,18 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <!-- Account Management -->
+
+                        {{-- if login as admin route to admin else to user --}}
+                        @if (Auth::user()->role == 'admin')
+                            <x-dropdown-link :href="route('admin.profile.edit')">
+                                {{ __('Dashboard') }}
+                            </x-dropdown-link>
+                        @else
+                        <x-dropdown-link :href="route('user.profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+                        @endif
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -109,10 +119,16 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                {{-- if login as admin route to admin else to user --}}
+                @if (Auth::user()->role == 'admin')
+                    <x-responsive-nav-link :href="route('admin.profile.edit')">
+                        {{ __('Profile') }}
+                    </x-responsive-nav-link>
+                @else
+                <x-responsive-nav-link :href="route('user.profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-
+                @endif
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

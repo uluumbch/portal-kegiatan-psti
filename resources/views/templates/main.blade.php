@@ -5,7 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Portal Informasi Kegiatan PSTI</title>
+{{-- check if ttitle exist then set title to that variabke --}}
+    @isset($title)
+        <title>{{ $title }}</title>
+    @else
+        <title>{{ config('app.name', 'Laravel') }}</title>
+    @endisset
 
     <!-- Fonts -->
 

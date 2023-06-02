@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\SocialShareButtonsController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Kegiatan;
 
@@ -24,48 +23,29 @@ Route::get('/', function () {
     ]);
 });
 
-// Route::get('/post/{slug}', function ($slug)
-// {
-//     return view('content', [
-//         'kegiatan' => Kegiatan::where('slug', $slug)->firstOrFail()
-//     ]);
-// });
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+Route::get('tentang-kami', function () {
+    return view('tentangkami');
+});
 
 Route::get('/post/{slug}', [KegiatanController::class, 'show'])->name('post.show');
 
 
-// create route with admin middleware for KegiatanController resource
-Route::middleware('auth', 'admin')->group(function () {
-    Route::resource('admin', KegiatanController::class);
-});
-
-// Route::resource('admin', KegiatanController::class);
-
-// Route::get('/admin', function () {
-//     return view('admin.dashboard');
-// })->middleware(['auth', 'verified'])->name('admin');
-
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
-
 // add middleware for admin and prefix /admin
 Route::middleware('admin')->prefix('admin')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('admin.profile.destroy');
 
     Route::resource('admin', KegiatanController::class);
 });
 
 // add middleware for user and prefix /user
 Route::middleware('auth')->prefix('user')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('user.profile.destroy');
 
     Route::resource('user', UserController::class);
 });
