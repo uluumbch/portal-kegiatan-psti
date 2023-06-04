@@ -112,6 +112,7 @@
                 @endforeach
             </div>
 
+            @if(Auth::user())
 
 
               <form class="py-2 px-4" action="{{route('comment.store')}}" style="box-shadow: 0 0 10px 0 #ddd;" method="POST" autocomplete="off">
@@ -155,6 +156,7 @@
                     </button>
                 </div>
             </form>
+            @endif
 
 
             </div>
