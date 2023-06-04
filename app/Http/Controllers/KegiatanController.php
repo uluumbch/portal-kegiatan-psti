@@ -155,7 +155,7 @@ class KegiatanController extends Controller
         $comment->email = $request->email;
         $comment->isi = $request->isi;
         $comment->save();
-        return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
+        return redirect('/post/'.$comment->post_slug)->with('success', 'Komentar berhasil ditambahkan.');
     }
 
     /**
