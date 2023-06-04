@@ -86,23 +86,29 @@
               {{-- <a href="{{ asset('post/' . $kegiatan['slug'] . '/comment/' . 'create') }}" class="btn btn-primary">Lihat</a> --}}
             <div>
 
-                @foreach($comments as $comment)
                 <div class="comment text-2xl">
                     Comment:
                 </div>
+                @foreach($comments as $comment)
+                <div class="flex flex-row p-6">
+                    <img src="{{ asset('img/profil.png') }}" width="50" height="40"  alt="Gambar">
 
-                <div class="">
-                <div class="commentisi border-2 duration-200 ease inline-flex items-center mb-1 mr-1 transition py-3 px-5 rounded-lg btn btn-primary">
-                    <div class="nama">Name: <p class="my-auto text-lg">{{ $comment['nama'] }}</p></div>
-                </div>
-                <div class="commentisi border-2 duration-200 ease inline-flex items-center mb-1 mr-1 transition py-3 px-5 rounded-lg btn btn-primary">
-                <div class="email">Email: <p class="my-auto text-lg">{{ $comment['email'] }}</p></div>
-            </div>
-                <div class="commentisi border-2 duration-200 ease inline-flex items-center mb-1 mr-1 transition py-3 px-5 rounded-lg btn btn-primary">
-                <div class="comment"> Comment: <p class="my-auto text-lg">{{ $comment['isi'] }}</p></div>
-            </div>
+                    <div class="w-full p-3">
 
+                      <div class="flex justify-between items-center">
+                          <div class="flex flex-row items-center">
+                            <span class="mr-2">{{ $comment['nama'] }}</span>
+                            <small class="c-badge">{{ $comment['email'] }}</small>
+                          </div>
+                    </div>
+
+                    <p class="text-justify comment-text mb-0">{{ $comment['isi'] }}</p>
+
+                    <div class="d-flex flex-row user-feed">
+                    </div>
+                  </div>
                 </div>
+
                 @endforeach
             </div>
 
@@ -114,7 +120,7 @@
                 <div class="row justify-content-end mb-1">
 
                 </div>
-                <p class="font-weight-bold ">Review</p>
+                <p class="font-weight-bold justify-center">Add Comment Here</p>
                 <div class="form-group row">
                     <div class=" col-sm-6">
                         <input type="hidden" class="form-control" type="text" name="nama" value="{{ Auth::user()->name }}"/>
@@ -139,9 +145,9 @@
                         </div>
                     </div>
                 </div> --}}
-                <div class="form-group row mt-4">
-                    <div class="col-sm-12 ">
-                        <textarea class="form-control" name="isi" rows="6 " placeholder="Comment" maxlength="2000"></textarea>
+                <div class="form-group row mt-4 ">
+                    <div class="w-full ">
+                        <textarea class="form-control resize rounded-md w-full h-32" name="isi" rows="6 " placeholder="Comment" maxlength="2000"></textarea>
                     </div>
                 </div>
                 <div class="mt-3 ">

@@ -6,7 +6,7 @@ use App\Models\Comment;
 use App\Models\Kegiatan;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Collection;
 
 
 class KegiatanController extends Controller
