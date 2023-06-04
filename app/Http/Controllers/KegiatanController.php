@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Kegiatan;
+use App\Models\User;
 use Illuminate\Http\Request;
+
+
 
 class KegiatanController extends Controller
 {
@@ -86,8 +90,11 @@ class KegiatanController extends Controller
 
         return view('content', [
                     'kegiatan' => Kegiatan::where('slug', $slug)->firstOrFail(),
+                    'comments' => Comment::where('post_slug', $slug)->get(),
                     'shareComponent' => $shareButton,
-                    'title' => Kegiatan::where('slug', $slug)->firstOrFail()->nama
+                    'title' => Kegiatan::where('slug', $slug)->firstOrFail()->nama,
+                    'user' => User::all(),
+
                 ]);
     }
 
@@ -138,6 +145,17 @@ class KegiatanController extends Controller
         $kegiatan->save();
 
         return redirect('/admin')->with('status', 'Kegiatan berhasil diubah!');
+    }
+
+
+    public function commentStore(Request $request){
+        $comment = new Comment;
+        $comment->post_slug = $request->post_slug;
+        $comment->nama = $request->nama;
+        $comment->email = $request->email;
+        $comment->isi = $request->isi;
+        $comment->save();
+        return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
     }
 
     /**
