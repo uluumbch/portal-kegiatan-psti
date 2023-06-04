@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    /**
+    /**INI TIDAK TERPAKAI
      * Display a listing of the resource.
      */
     public function index()
