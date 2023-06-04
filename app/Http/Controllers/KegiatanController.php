@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Kegiatan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+
 
 class KegiatanController extends Controller
 {
@@ -55,7 +59,7 @@ class KegiatanController extends Controller
         $kegiatan->content = $request->content;
         // add kegiatan->foto to database as base64 image
         $kegiatan->foto = base64_encode(file_get_contents($request->file('foto')->getRealPath()));
-        
+
         // move foto to public folder in subfolder foto-kegiatan, and prevent file name from being duplicated
         // $nama_foto = time()."". $request->file('foto')->getClientOriginalName();
         // $request->file('foto')->move(public_path('foto-kegiatan'), $nama_foto);
@@ -86,8 +90,11 @@ class KegiatanController extends Controller
 
         return view('content', [
                     'kegiatan' => Kegiatan::where('slug', $slug)->firstOrFail(),
+                    'comments' => Comment::where('post_slug', $slug)->get(),
                     'shareComponent' => $shareButton,
-                    'title' => Kegiatan::where('slug', $slug)->firstOrFail()->nama
+                    'title' => Kegiatan::where('slug', $slug)->firstOrFail()->nama,
+                    'user' => User::all(),
+
                 ]);
     }
 
@@ -129,7 +136,8 @@ class KegiatanController extends Controller
         $kegiatan->tanggal = $request->tanggal;
         $kegiatan->tempat = $request->tempat;
         $kegiatan->content = $request->content;
-        
+
+        // move foto to public folder in subfolder foto-kegiatan, and prevent file name from being duplicated
         if($request->file('foto')){
             $kegiatan->foto = base64_encode(file_get_contents($request->file('foto')->getRealPath()));
         }
@@ -137,6 +145,17 @@ class KegiatanController extends Controller
         $kegiatan->save();
 
         return redirect('/admin')->with('status', 'Kegiatan berhasil diubah!');
+    }
+
+
+    public function commentStore(Request $request){
+        $comment = new Comment;
+        $comment->post_slug = $request->post_slug;
+        $comment->nama = $request->nama;
+        $comment->email = $request->email;
+        $comment->isi = $request->isi;
+        $comment->save();
+        return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
     }
 
     /**

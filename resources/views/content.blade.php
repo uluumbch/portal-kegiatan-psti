@@ -82,8 +82,84 @@
                   <span class="ml-2">Share on Telegram</span>
                 </a>
               </div>
-            
-        </div>
-        
+
+              {{-- <a href="{{ asset('post/' . $kegiatan['slug'] . '/comment/' . 'create') }}" class="btn btn-primary">Lihat</a> --}}
+            <div>
+
+                <div class="comment text-2xl">
+                    Comment:
+                </div>
+                @foreach($comments as $comment)
+                <div class="flex flex-row p-6">
+                    <img src="{{ asset('img/profil.png') }}" width="50" height="40"  alt="Gambar">
+
+                    <div class="w-full p-3">
+
+                      <div class="flex justify-between items-center">
+                          <div class="flex flex-row items-center">
+                            <span class="mr-2">{{ $comment['nama'] }}</span>
+                            <small class="c-badge">{{ $comment['email'] }}</small>
+                          </div>
+                    </div>
+
+                    <p class="text-justify comment-text mb-0">{{ $comment['isi'] }}</p>
+
+                    <div class="d-flex flex-row user-feed">
+                    </div>
+                  </div>
+                </div>
+
+                @endforeach
+            </div>
+
+            @if(Auth::user())
+
+
+              <form class="py-2 px-4" action="{{route('comment.store')}}" style="box-shadow: 0 0 10px 0 #ddd;" method="POST" autocomplete="off">
+                @csrf
+                <input type="hidden" name="post_slug" value="{{$kegiatan->slug}}">
+                <div class="row justify-content-end mb-1">
+
+                </div>
+                <p class="font-weight-bold justify-center">Add Comment Here</p>
+                <div class="form-group row">
+                    <div class=" col-sm-6">
+                        <input type="hidden" class="form-control" type="text" name="nama" value="{{ Auth::user()->name }}"/>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="hidden" class="form-control" type="email" name="email" value="{{Auth::user()->email}}" />
+                    </div>
+                </div>
+                {{-- <div class="form-group row">
+                    <div class="col-sm-6">
+                        <div class="rate">
+                            <input type="radio" id="star5" class="rate" name="rating" value="5" />
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio" checked id="star4" class="rate" name="rating" value="4" />
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" class="rate" name="rating" value="3" />
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2" class="rate" name="rating" value="2">
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" class="rate" name="rating" value="1" />
+                            <label for="star1" title="text">1 star</label>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="form-group row mt-4 ">
+                    <div class="w-full ">
+                        <textarea class="form-control resize rounded-md w-full h-32" name="isi" rows="6 " placeholder="Comment" maxlength="2000"></textarea>
+                    </div>
+                </div>
+                <div class="mt-3 ">
+                    <button class="btn btn-sm py-2 px-3 btn-info">Submit
+                    </button>
+                </div>
+            </form>
+            @endif
+
+
+            </div>
+
     </div>
 @endsection
