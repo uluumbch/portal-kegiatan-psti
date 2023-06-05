@@ -2,7 +2,23 @@
 @section('content')
     <div class="flex flex-col w-full">
         <div class="mt-2 card bg-base-300 rounded-box place-items-center">
-            <h2 class="text-center font-bold text-2xl">{{ $kegiatan['nama'] }}</h2>
+            <h2 class="text-center font-bold text-2xl">{{ $kegiatan['nama'] }}
+                @if ($averageRating)
+                <div class="inline-block pt-5">
+                @for($i=1; $i<=$averageRating; $i++)
+                <span class="inline-block">
+                  <img src="{{ asset('img/star.png') }}" width="25" height="25"  alt="Gambar">
+                </span>
+                @endfor
+                @for($i = 5 - $averageRating; $i>0; $i--)
+                <span class="inline-block">
+                    <img src="{{ asset('img/starvoid.png') }}" width="25" height="25"  alt="Gambar">
+                  </span>
+                @endfor
+                </div>
+            @endif
+
+            </h2>
             <figure><img class="lg:max-w-4xl max-md" src="data:image/jpeg;base64, {{$kegiatan['foto'] }}"
                     alt="{{ $kegiatan['nama'] }}" />
             </figure>
@@ -86,9 +102,13 @@
               {{-- <a href="{{ asset('post/' . $kegiatan['slug'] . '/comment/' . 'create') }}" class="btn btn-primary">Lihat</a> --}}
             <div>
 
-                <div class="comment text-2xl">
+                <div class="comment text-2xl ">
                     Comment:
                 </div>
+                {{-- <div class="flex justify-between items-center">
+                Rating
+                </div> --}}
+
                 @foreach($comments as $comment)
                 <div class="flex flex-row p-6">
                     <img src="{{ asset('img/profil.png') }}" width="50" height="40"  alt="Gambar">
@@ -100,6 +120,24 @@
                             <span class="mr-2">{{ $comment['nama'] }}</span>
                             <small class="c-badge">{{ $comment['email'] }}</small>
                           </div>
+
+                          <div class="flex justify-between items-center">
+                            <div class="text-xl">
+                               Rating:
+                            </div>
+
+                            @for($i=1; $i<=$comment->star_rating; $i++)
+                            <span>
+                              <img src="{{ asset('img/star.png') }}" width="30" height="30"  alt="Gambar">
+                            </span>
+                            @endfor
+                            @for($i = 5 - $comment->star_rating; $i>0; $i--)
+                            <span>
+                                <img src="{{ asset('img/starvoid.png') }}" width="30" height="30"  alt="Gambar">
+                              </span>
+                            @endfor
+                          </div>
+
                     </div>
 
                     <p class="text-justify comment-text mb-0">{{ $comment['isi'] }}</p>
@@ -121,7 +159,7 @@
                 <div class="row justify-content-end mb-1">
 
                 </div>
-                <p class="font-weight-bold justify-center">Add Comment Here</p>
+                <p class="font-weight-bold justify-center">Add Rating and Comment Here</p>
                 <div class="form-group row">
                     <div class=" col-sm-6">
                         <input type="hidden" class="form-control" type="text" name="nama" value="{{ Auth::user()->name }}"/>
@@ -130,22 +168,22 @@
                         <input type="hidden" class="form-control" type="email" name="email" value="{{Auth::user()->email}}" />
                     </div>
                 </div>
-                {{-- <div class="form-group row">
+                <div class="form-group row">
                     <div class="col-sm-6">
                         <div class="rate">
-                            <input type="radio" id="star5" class="rate" name="rating" value="5" />
+                            <input type="radio" id="star5" class="rate" name="star_rating" value="5" />
                             <label for="star5" title="text">5 stars</label>
-                            <input type="radio" checked id="star4" class="rate" name="rating" value="4" />
+                            <input type="radio" checked id="star4" class="rate" name="star_rating" value="4" />
                             <label for="star4" title="text">4 stars</label>
-                            <input type="radio" id="star3" class="rate" name="rating" value="3" />
+                            <input type="radio" id="star3" class="rate" name="star_rating" value="3" />
                             <label for="star3" title="text">3 stars</label>
-                            <input type="radio" id="star2" class="rate" name="rating" value="2">
+                            <input type="radio" id="star2" class="rate" name="star_rating" value="2">
                             <label for="star2" title="text">2 stars</label>
-                            <input type="radio" id="star1" class="rate" name="rating" value="1" />
+                            <input type="radio" id="star1" class="rate" name="star_rating" value="1" />
                             <label for="star1" title="text">1 star</label>
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 <div class="form-group row mt-4 ">
                     <div class="w-full ">
                         <textarea class="form-control resize rounded-md w-full h-32" name="isi" rows="6 " placeholder="Comment" maxlength="2000"></textarea>
@@ -158,7 +196,7 @@
             </form>
             @endif
 
-
+            @csrf
             </div>
 
     </div>
