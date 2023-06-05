@@ -97,7 +97,7 @@
                     <span class="text-red-500">{{ $message }}</span>
                 @enderror
             </label>
-            <button class="btn btn-primary my-4" type="submit">BUAT</button>
+            <button class="btn btn-primary my-4" type="submit">{{ isset($title) ? 'Update' : 'Simpan' }}</button>
         </div>
     </form>
     <script>

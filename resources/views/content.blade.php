@@ -2,7 +2,19 @@
 @section('content')
     <div class="flex flex-col w-full">
         <div class="mt-2 card bg-base-300 rounded-box place-items-center">
-            <h2 class="text-center font-bold text-2xl">{{ $kegiatan['nama'] }}</h2>
+            <h2 class="text-center font-bold text-2xl">{{ $kegiatan['nama'] }}
+                @if ($averageRating)
+                <div class="inline-block pt-5">
+                @for($i=1; $i<=$averageRating; $i++)
+                <span type="radio" class="h-5 w-5 mask mask-star-2 bg-yellow-400"></span>
+                @endfor
+                @for($i = 5 - $averageRating; $i>0; $i--)
+                <span type="radio" class="h-5 w-5 mask mask-star-2 bg-slate-400"></span>
+                @endfor
+                </div>
+            @endif
+
+            </h2>
             <figure><img class="lg:max-w-4xl max-md" src="data:image/jpeg;base64, {{$kegiatan['foto'] }}"
                     alt="{{ $kegiatan['nama'] }}" />
             </figure>
@@ -82,8 +94,106 @@
                   <span class="ml-2">Share on Telegram</span>
                 </a>
               </div>
-            
-        </div>
-        
+
+            <div>
+
+                <div class="comment text-2xl ">
+                    Comment:
+                </div>
+                {{-- <div class="flex justify-between items-center">
+                Rating
+                </div> --}}
+
+                @foreach($comments as $comment)
+                <div class="flex flex-row p-6">
+                    <img src="{{ asset('img/profil.png') }}" width="50" height="40"  alt="Gambar">
+                    {{-- <div class="avatar">
+                      <div class="w-24 rounded-full">
+                        <img src="data:image/jpeg;base64, {{$kegiatan['foto'] }}">
+                      </div>
+                    </div> --}}
+
+                    <div class="w-full p-3">
+
+                      <div class="flex justify-between items-center">
+                          <div class="flex flex-row items-center">
+                            <span class="mr-2">{{ $comment['nama'] }}</span>
+                            <small class="c-badge">{{ $comment['email'] }}</small>
+                          </div>
+
+                          <div class="flex justify-between items-center">
+                            <div class="text-xl">
+                               Rating:
+                            </div>
+
+                            @for($i=1; $i<=$comment->star_rating; $i++)
+                              <span type="radio" class="h-5 w-5 mask mask-star-2 bg-yellow-400"></span>
+                            @endfor
+                            @for($i = 5 - $comment->star_rating; $i>0; $i--)
+                            <span type="radio" class="h-5 w-5 mask mask-star-2 bg-slate-400"></span>
+                            @endfor
+                          </div>
+
+                    </div>
+
+                    <p class="text-justify comment-text mb-0">{{ $comment['isi'] }}</p>
+
+                    <div class="d-flex flex-row user-feed">
+                    </div>
+                  </div>
+                </div>
+
+                @endforeach
+            </div>
+
+            @if(Auth::user())
+
+
+              <form class="py-2 px-4" action="{{route('comment.store')}}" style="box-shadow: 0 0 10px 0 #ddd;" method="POST" autocomplete="off">
+                @csrf
+                <input type="hidden" name="post_slug" value="{{$kegiatan->slug}}">
+                <div class="row justify-content-end mb-1">
+
+                </div>
+                <p class="font-weight-bold justify-center">Add Rating and Comment Here</p>
+                <div class="form-group row">
+                    <div class=" col-sm-6">
+                        <input type="hidden" class="form-control" type="text" name="nama" value="{{ Auth::user()->name }}"/>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="hidden" class="form-control" type="email" name="email" value="{{Auth::user()->email}}" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <div class="rate">
+                            <input type="radio" id="star5" class="rate" name="star_rating" value="5" />
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio"  id="star4" class="rate" name="star_rating" value="4" />
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" class="rate" name="star_rating" value="3" />
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2" class="rate" name="star_rating" value="2">
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" class="rate" name="star_rating" value="1" />
+                            <label for="star1" title="text">1 star</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mt-4 ">
+                    <div class="w-full ">
+                        <textarea class="form-control resize rounded-md w-full h-32" name="isi" rows="6 " placeholder="Comment" maxlength="2000"></textarea>
+                    </div>
+                </div>
+                <div class="mt-3 ">
+                    <button class="btn btn-sm py-2 px-3 btn-info">Submit
+                    </button>
+                </div>
+            </form>
+            @endif
+
+            @csrf
+            </div>
+
     </div>
 @endsection
