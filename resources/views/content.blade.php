@@ -6,14 +6,10 @@
                 @if ($averageRating)
                 <div class="inline-block pt-5">
                 @for($i=1; $i<=$averageRating; $i++)
-                <span class="inline-block">
-                  <img src="{{ asset('img/star.png') }}" width="25" height="25"  alt="Gambar">
-                </span>
+                <span type="radio" class="h-5 w-5 mask mask-star-2 bg-yellow-400"></span>
                 @endfor
                 @for($i = 5 - $averageRating; $i>0; $i--)
-                <span class="inline-block">
-                    <img src="{{ asset('img/starvoid.png') }}" width="25" height="25"  alt="Gambar">
-                  </span>
+                <span type="radio" class="h-5 w-5 mask mask-star-2 bg-slate-400"></span>
                 @endfor
                 </div>
             @endif
@@ -127,14 +123,10 @@
                             </div>
 
                             @for($i=1; $i<=$comment->star_rating; $i++)
-                            <span>
-                              <img src="{{ asset('img/star.png') }}" width="30" height="30"  alt="Gambar">
-                            </span>
+                              <span type="radio" class="h-5 w-5 mask mask-star-2 bg-yellow-400"></span>
                             @endfor
                             @for($i = 5 - $comment->star_rating; $i>0; $i--)
-                            <span>
-                                <img src="{{ asset('img/starvoid.png') }}" width="30" height="30"  alt="Gambar">
-                              </span>
+                            <span type="radio" class="h-5 w-5 mask mask-star-2 bg-slate-400"></span>
                             @endfor
                           </div>
 
@@ -173,7 +165,7 @@
                         <div class="rate">
                             <input type="radio" id="star5" class="rate" name="star_rating" value="5" />
                             <label for="star5" title="text">5 stars</label>
-                            <input type="radio" checked id="star4" class="rate" name="star_rating" value="4" />
+                            <input type="radio"  id="star4" class="rate" name="star_rating" value="4" />
                             <label for="star4" title="text">4 stars</label>
                             <input type="radio" id="star3" class="rate" name="star_rating" value="3" />
                             <label for="star3" title="text">3 stars</label>

@@ -17,7 +17,7 @@ class KegiatanController extends Controller
     public function index()
     {
         $kegiatan = Kegiatan::orderBy('created_at', 'desc')->simplePaginate(5);
-        return view('admin.dashboard', compact('kegiatan'));
+        return view('dashboard.dashboard', compact('kegiatan'));
     }
 
     /**
@@ -25,7 +25,7 @@ class KegiatanController extends Controller
      */
     public function create()
     {
-        return view('admin.create-edit');
+        return view('dashboard.create-edit');
     }
 
     /**
