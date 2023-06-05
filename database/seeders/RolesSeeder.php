@@ -46,7 +46,7 @@ class RolesSeeder extends Seeder
         // create demo users without factory
         $admin = \App\Models\User::create([
             'name' => 'Admin',
-            'email' => 'admin1@mail.com',
+            'email' => 'admin@mail.com',
             'password' => bcrypt('password'),
         ]);
         $admin->assignRole('admin');

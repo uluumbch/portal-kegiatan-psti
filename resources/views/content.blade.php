@@ -95,7 +95,6 @@
                 </a>
               </div>
 
-              {{-- <a href="{{ asset('post/' . $kegiatan['slug'] . '/comment/' . 'create') }}" class="btn btn-primary">Lihat</a> --}}
             <div>
 
                 <div class="comment text-2xl ">
@@ -108,6 +107,11 @@
                 @foreach($comments as $comment)
                 <div class="flex flex-row p-6">
                     <img src="{{ asset('img/profil.png') }}" width="50" height="40"  alt="Gambar">
+                    {{-- <div class="avatar">
+                      <div class="w-24 rounded-full">
+                        <img src="data:image/jpeg;base64, {{$kegiatan['foto'] }}">
+                      </div>
+                    </div> --}}
 
                     <div class="w-full p-3">
 

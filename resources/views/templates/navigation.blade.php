@@ -46,6 +46,12 @@
                                 <button class="btn btn-primary">Dashboard</button>
                             </a>
                         </li>
+                    @else
+                    <li>
+                        <a class="" href="{{ asset('/login') }}">
+                            <button class="btn btn-primary">login</button>
+                        </a>
+                    </li>
                     @endif
                     {{-- <a href="{{ asset('/register') }}">
                         <button class="btn btn-primary">Register</button>
