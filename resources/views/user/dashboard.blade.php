@@ -53,8 +53,8 @@
                                 <th>Deskripsi</th>
                             </tr>
                         </tfoot>
-
                     </table>
+                    
                 </div>
             </div>
         </div>

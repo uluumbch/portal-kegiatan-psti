@@ -16,7 +16,7 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        $kegiatan = Kegiatan::all();
+        $kegiatan = Kegiatan::orderBy('created_at', 'desc')->simplePaginate(5);
         return view('admin.dashboard', compact('kegiatan'));
     }
 
@@ -117,7 +117,7 @@ class KegiatanController extends Controller
         // create validation
         $request->validate([
             'nama' => 'required',
-            'deskripsi' => 'required|max:100',
+            'deskripsi' => 'required',
             'tanggal' => 'required',
             'tempat' => 'required',
             'content' => 'required',
