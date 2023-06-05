@@ -77,6 +77,9 @@ class KegiatanController extends Controller
      */
     public function show($slug)
     {
+        $rating = Comment::where('post_slug', $slug)->pluck('star_rating');
+        $averageRating = $rating->average();
+        $averageRating = round($averageRating);
         $shareButton = \Share::page(
             route('post.show', $slug),
             'PSTI FT ULM Memiliki Kegiatan baru. Lihat disini : ' . Kegiatan::where('slug', $slug)->firstOrFail()->nama
@@ -91,6 +94,7 @@ class KegiatanController extends Controller
         return view('content', [
                     'kegiatan' => Kegiatan::where('slug', $slug)->firstOrFail(),
                     'comments' => Comment::where('post_slug', $slug)->get(),
+                    'averageRating' => $averageRating,
                     'shareComponent' => $shareButton,
                     'title' => Kegiatan::where('slug', $slug)->firstOrFail()->nama,
                     'user' => User::all(),
@@ -154,8 +158,9 @@ class KegiatanController extends Controller
         $comment->nama = $request->nama;
         $comment->email = $request->email;
         $comment->isi = $request->isi;
+        $comment->star_rating = $request->star_rating;
         $comment->save();
-        return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
+        return redirect('/post/'.$comment->post_slug)->with('success', 'Komentar berhasil ditambahkan.');
     }
 
     /**

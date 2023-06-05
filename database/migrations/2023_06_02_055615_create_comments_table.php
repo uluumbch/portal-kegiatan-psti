@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('email');
             $table->text('isi');
+            $table->integer('star_rating');
             $table->string('post_slug');
             $table->timestamps();
         });
