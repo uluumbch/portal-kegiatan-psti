@@ -6,8 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Kegiatan;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendMail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,14 +25,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/mail', function () {
-    $data = [
-        'name' => 'Syahrizal As',
-        'body' => 'Testing Kirim Email di Santri Koding'
-    ];
-    $a = Mail::to('uluum123@gmail.com')->send(new SendMail($data));
-    dd($a);
-});
 
 
 Route::get('tentang-kami', function () {
