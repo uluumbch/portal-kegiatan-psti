@@ -1,7 +1,7 @@
 @extends('templates.main')
 @section('content')
     <div class="flex flex-col w-full">
-        <div class="mt-2 card bg-base-300 m-8 p-5 mt-5 place-items-center">
+        <div class="card bg-base-300 m-8 p-5 mt-5 place-items-center">
             <h2 class="text-center font-bold text-2xl mt-5">{{ $kegiatan['nama'] }} <br>
                 @if ($averageRating)
                 <div class="inline-block pt-5">
@@ -191,7 +191,6 @@
                 @endforeach
             </div>
 
-            @csrf
             </div>
 
     </div>
