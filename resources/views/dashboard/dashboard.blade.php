@@ -77,7 +77,7 @@
                             @endforeach
 
                         </tbody>
-                        
+
                     </table>
                     {{ $kegiatan->links() }}
                 </div>

@@ -95,6 +95,7 @@
                 </a>
               </div>
 
+
             <div>
 
                 <div class="comment text-2xl ">
@@ -106,7 +107,12 @@
 
                 @foreach($comments as $comment)
                 <div class="flex flex-row p-6">
+                    @if($comment['foto'])
+                    <img src="{{ $comment['foto'] }}" width="50" height="40"  alt="Gambar">
+                    @else
                     <img src="{{ asset('img/profil.png') }}" width="50" height="40"  alt="Gambar">
+                    @endif
+
                     {{-- <div class="avatar">
                       <div class="w-24 rounded-full">
                         <img src="data:image/jpeg;base64, {{$kegiatan['foto'] }}">
@@ -159,9 +165,12 @@
                 <div class="form-group row">
                     <div class=" col-sm-6">
                         <input type="hidden" class="form-control" type="text" name="nama" value="{{ Auth::user()->name }}"/>
-                    </div>
                     <div class="col-sm-6">
+                    <div class=" col-sm-6">
                         <input type="hidden" class="form-control" type="email" name="email" value="{{Auth::user()->email}}" />
+                    </div>
+                    <div class=" col-sm-6">
+                        <input type="hidden" class="form-control" type="file" name="foto" value="{{Auth::user()->foto}}" />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -190,6 +199,11 @@
                     </button>
                 </div>
             </form>
+            @else
+            <div class = "text-2xl mb-7">
+              Silahkan Login Sebelum Memberikan Komentar
+            </div>
+
             @endif
 
             @csrf

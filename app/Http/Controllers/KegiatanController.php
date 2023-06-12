@@ -141,6 +141,7 @@ class KegiatanController extends Controller
         $kegiatan->tempat = $request->tempat;
         $kegiatan->content = $request->content;
 
+
         // move foto to public folder in subfolder foto-kegiatan, and prevent file name from being duplicated
         if($request->file('foto')){
             $kegiatan->foto = base64_encode(file_get_contents($request->file('foto')->getRealPath()));
@@ -159,6 +160,7 @@ class KegiatanController extends Controller
         $comment->email = $request->email;
         $comment->isi = $request->isi;
         $comment->star_rating = $request->star_rating;
+        $comment->foto = $request->foto;
         $comment->save();
         return redirect('/post/'.$comment->post_slug)->with('success', 'Komentar berhasil ditambahkan.');
     }
