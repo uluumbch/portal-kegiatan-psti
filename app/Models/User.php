@@ -53,4 +53,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * Get the pendaftar kegiatan for the blog post.
+     */
+    public function pendaftarKegiatan()
+    {
+        return $this->hasMany(PendaftarKegiatan::class);
+    }
 }

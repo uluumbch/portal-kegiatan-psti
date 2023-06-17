@@ -1,5 +1,6 @@
 @extends('templates.main')
 @section('content')
+{{-- @dd($kegiatan) --}}
     <div class="flex flex-col w-full">
         <div class="card bg-base-300 m-8 p-5 mt-5 place-items-center">
             <h2 class="text-center font-bold text-2xl mt-5">{{ $kegiatan['nama'] }} <br>
@@ -53,11 +54,26 @@
         <div class="m-8 mockup-window  bg-base-300">
             <div class="p-6 flex justify-center flex-col gap-2 items-center">
                 @if (Auth::user())
-                    <p>Anda belum terdaftar di kegiatan ini</p>
-                    <p>Yuk daftarkan dirimu ke kegiatan ini!</p>
-                    <button class="btn btn-primary btn-sm">
-                        {{-- <a href="{{ route('daftar-kegiatan', ['id' => $kegiatan['id']]) }}">Daftar</a> --}}
-                        daftar gratis
+                  {{-- check if user with this id is has registered in this event by comparing with table pendaftar_kegiatan --}}
+                  {{-- @dd($kegiatan) --}}
+                    @if($kegiatan->pendaftarKegiatan->firstWhere('user_id', Auth::user()->id))
+                        <p>Anda sudah terdaftar di kegiatan ini</p>
+                        <p>Yuk ajak yang lain untuk mengikuti kegiatan ini juga dengan cara share</p>
+                        <p>Jangan lupa juga untuk cek kegiatan lainnya!</p>
+                        <a href="{{ asset('/#event') }}">
+                          <button class="btn btn-primary btn-sm">
+                            lihat kegiatan lainnya
+                          </button>
+                        </a>
+                    @else
+                        <p>Anda belum terdaftar di kegiatan ini</p>
+                        <p>Yuk daftarkan dirimu ke kegiatan ini!</p>
+                        <a href="{{ route('konfirmasiDaftarkegiatan', $kegiatan->slug) }}">
+                          <button class="btn btn-primary btn-sm">
+                            daftar gratis
+                          </button>
+                        </a>
+                    @endif
                   @else
                         <p>Silakan login terlebih dahulu untuk dapat mendaftar ke kegatan ini secara gratis.</p>
                   @endif
@@ -136,7 +152,7 @@
         {{-- tampil komentar --}}
         <div class="w-full p-8">
             <div class="divider text-center text-xl font-semibold">Komentar</div>
-            @forelse ($comments as $comment)
+            @forelse ($kegiatan->comments as $comment)
                 <div class="flex flex-col mt-8">
                     <div class="flex flex-row justify-between">
                         <div class="flex">

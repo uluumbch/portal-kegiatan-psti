@@ -53,11 +53,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('user.profile.destroy');
-    Route::post('/comment-store', [KegiatanController::class, 'commentStore'])->name('comment.store');
+    Route::post('/comment-store/{slug}', [CommentController::class, 'store'])->name('comment.store');
+    Route::delete('/comment/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
 
     Route::resource('user', UserController::class);
 
-    Route::get('/dashboard', [KegiatanController::class, 'index'])->name('admin.index');
+    Route::get('/dashboard', [KegiatanController::class, 'index'])->name('dashboard');
+
+    Route::get('/kegiatanku', [KegiatanController::class, 'kegiatan'])->name('kegiatanku');
+    Route::get('/daftarkegiatan/{slug}', [KegiatanController::class, 'konfirmasiDaftarkegiatan'])->name('konfirmasiDaftarkegiatan');
+    Route::post('/daftarkegiatan/{kegiatan_id}', [KegiatanController::class, 'daftarkegiatan'])->name('daftarkegiatan');
+
     Route::resource('admin', KegiatanController::class)->except(['index']);
 });
 

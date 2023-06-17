@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Kegiatan;
+use App\Models\PendaftarKegiatan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-
+use PhpParser\Node\Expr\FuncCall;
 
 class KegiatanController extends Controller
 {
@@ -17,6 +18,7 @@ class KegiatanController extends Controller
     public function index()
     {
         $kegiatan = Kegiatan::orderBy('created_at', 'desc')->simplePaginate(5);
+        
         return view('dashboard.dashboard', compact('kegiatan'));
     }
 
@@ -74,7 +76,8 @@ class KegiatanController extends Controller
         // $rating = Comment::where('post_slug', $slug)->pluck('star_rating');
         // $averageRating = $rating->average();
         // $averageRating = round($averageRating);
-        $kegiatan = Kegiatan::where('slug', $slug)->with('comments')->firstOrFail();
+        $kegiatan = Kegiatan::where('slug', $slug)->with('comments', 'pendaftarKegiatan')->firstOrFail();
+        $comments = $kegiatan->comments()->orderBy('created_at', 'desc')->get();
         $shareButton = \Share::page(
             route('post.show', $slug),
             'PSTI FT ULM Memiliki Kegiatan baru. Lihat disini : ' . $kegiatan->nama
@@ -90,6 +93,7 @@ class KegiatanController extends Controller
                     'kegiatan' => $kegiatan,
                     'averageRating' => 4,
                     'shareComponent' => $shareButton,
+                    'comments' => $comments
                 ]);
     }
 
@@ -144,18 +148,6 @@ class KegiatanController extends Controller
     }
 
 
-    public function commentStore(Request $request){
-        $comment = new Comment;
-        $comment->post_slug = $request->post_slug;
-        $comment->nama = $request->nama;
-        $comment->email = $request->email;
-        $comment->isi = $request->isi;
-        $comment->star_rating = $request->star_rating;
-        $comment->foto = $request->foto;
-        $comment->save();
-        return redirect('/post/'.$comment->post_slug)->with('success', 'Komentar berhasil ditambahkan.');
-    }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -163,5 +155,27 @@ class KegiatanController extends Controller
     {
         Kegiatan::destroy($id);
         return redirect('/admin')->with('status', 'Kegiatan berhasil dihapus!');
+    }
+
+    public function kegiatan()
+    {
+        $kegiatanTerdaftar = PendaftarKegiatan::where('user_id', auth()->user()->id)->with('kegiatan')->get();
+        return view('dashboard.kegiatanku', compact('kegiatanTerdaftar'));
+    }
+    public function konfirmasiDaftarKegiatan($slug)
+    {
+        $kegiatan = Kegiatan::where('slug', $slug)->firstOrFail();
+        return view('dashboard.daftar-kegiatan', compact('kegiatan'));
+    }
+// create function to add registration functinality, user can register to a kegaitan
+    public function daftarKegiatan($kegiatan_id)
+    {
+        $data = [
+            'user_id' => auth()->user()->id,
+            'kegiatan_id' => $kegiatan_id,
+        ];
+        dd($data);
+        // PendaftarKegiatan::create($data);
+        return redirect(route('kegiatanku'))->with('status', 'Pendaftaran berhasil!');
     }
 }

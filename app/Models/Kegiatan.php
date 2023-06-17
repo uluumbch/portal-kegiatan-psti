@@ -34,4 +34,9 @@ class Kegiatan extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function pendaftarKegiatan()
+    {
+        return $this->hasMany(PendaftarKegiatan::class);
+    }
 }

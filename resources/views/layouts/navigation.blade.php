@@ -7,15 +7,9 @@
                 <div class="shrink-0 flex items-center">
                     {{-- if login as admin route to admin else to user --}}
                     
-                    @if (Auth::user()->role == 'admin')
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('dashboard') }}">
                             <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                         </a>
-                    @else
-                        <a href="{{ route('user.index') }}">
-                            <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                        </a>
-                    @endif
                     {{-- <a href="{{ route('admin.index') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a> --}}
@@ -23,16 +17,16 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    {{-- if login as admin route to admin else to user --}}
-                    @if (Auth::user()->role == 'admin')
-                        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                    @else
-                        <x-nav-link :href="route('user.index')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
+                        {{-- if role is user show the link --}}
+                        @role('user')
+                        <x-nav-link :href="route('kegiatanku')" :active="request()->routeIs('kegiatanku')">
+                            {{ __('Kegiatanku') }}
                         </x-nav-link>
-                    @endif
+                        @endrole
+                        {{-- if role is admin show the link --}}
                     
 
                     {{-- <x-nav-link :href="route('admin.index')" :active="request()->routeIs('dashboard')">
@@ -115,7 +109,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
