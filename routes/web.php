@@ -45,7 +45,7 @@ Route::get('/post/{slug}', [KegiatanController::class, 'show'])->name('post.show
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('admin.profile.destroy');
 
-    
+
 // });
 
 // add middleware for user and prefix /user

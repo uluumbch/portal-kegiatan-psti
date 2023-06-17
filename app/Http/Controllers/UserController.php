@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kegiatan;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserController extends Controller
 {
@@ -13,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $kegiatan = Kegiatan::all();
-        return view('user.dashboard', compact('kegiatan'));
+        return view('welcome', compact('kegiatan'));
     }
 
     /**
