@@ -25,10 +25,7 @@ class CommentController extends Controller
     public function create($slug)
     {
         //
-        $kegiatan = Kegiatan::where('slug', $slug)->firstOrFail();
-        $comment = new Comment;
-        $comment->post_slug = $kegiatan->slug;
-        return view('comment.create');
+        
     }
 
     /**
@@ -36,26 +33,23 @@ class CommentController extends Controller
      */
     public function store(Request $request, $slug)
     {
-        $kegiatan = Kegiatan::where('slug', $slug)->firstOrFail();
-
+        
         $request->validate([
-            'nama' => 'required',
-            'email' => 'required|email',
             'isi' => 'required',
         ], [
-            'nama.required' => 'Nama tidak boleh kosong',
-            'email.required' => 'email tidak boleh kosong',
-            'isi.required' => 'isi tidak boleh kosong',
+            'isi.required' => 'Tulis komentar terkebih dahulu!',
         ]);
 
-        $comment = new Comment;
-        $comment->post_slug = $request->post_slug;
-        $comment->nama = $request->nama;
-        $comment->email = $request->email;
-        $comment->isi = $request->isi;
-
-
-        $comment->save();
+        $kegiatan = Kegiatan::where('slug', $slug)->first();
+        $data = [
+            'nama' => auth()->user()->name,
+            'user_id' => auth()->user()->id, // 'user_id' => '1
+            'email' => auth()->user()->email,
+            'isi' => $request->isi,
+            'star_rating' => 5, 
+            'kegiatan_id' => $kegiatan->id,
+        ];
+        Comment::create($data);
 
         return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
 
@@ -90,6 +84,7 @@ class CommentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Comment::destroy($id);
+        return redirect()->back()->with('success', 'Komentar berhasil dihapus.');
     }
 }
