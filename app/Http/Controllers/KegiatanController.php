@@ -59,12 +59,6 @@ class KegiatanController extends Controller
         $kegiatan->content = $request->content;
         // add kegiatan->foto to database as base64 image
         $kegiatan->foto = base64_encode(file_get_contents($request->file('foto')->getRealPath()));
-
-        // move foto to public folder in subfolder foto-kegiatan, and prevent file name from being duplicated
-        // $nama_foto = time()."". $request->file('foto')->getClientOriginalName();
-        // $request->file('foto')->move(public_path('foto-kegiatan'), $nama_foto);
-        // $kegiatan['foto'] = $nama_foto;
-
         $kegiatan->save();
 
 
@@ -77,12 +71,13 @@ class KegiatanController extends Controller
      */
     public function show($slug)
     {
-        $rating = Comment::where('post_slug', $slug)->pluck('star_rating');
-        $averageRating = $rating->average();
-        $averageRating = round($averageRating);
+        // $rating = Comment::where('post_slug', $slug)->pluck('star_rating');
+        // $averageRating = $rating->average();
+        // $averageRating = round($averageRating);
+        $kegiatan = Kegiatan::where('slug', $slug)->with('comments')->firstOrFail();
         $shareButton = \Share::page(
             route('post.show', $slug),
-            'PSTI FT ULM Memiliki Kegiatan baru. Lihat disini : ' . Kegiatan::where('slug', $slug)->firstOrFail()->nama
+            'PSTI FT ULM Memiliki Kegiatan baru. Lihat disini : ' . $kegiatan->nama
         )
             ->facebook()
             ->twitter()
@@ -92,13 +87,9 @@ class KegiatanController extends Controller
             ->getRawLinks();
 
         return view('content', [
-                    'kegiatan' => Kegiatan::where('slug', $slug)->firstOrFail(),
-                    'comments' => Comment::where('post_slug', $slug)->get(),
-                    'averageRating' => $averageRating,
+                    'kegiatan' => $kegiatan,
+                    'averageRating' => 4,
                     'shareComponent' => $shareButton,
-                    'title' => Kegiatan::where('slug', $slug)->firstOrFail()->nama,
-                    'user' => User::all(),
-
                 ]);
     }
 

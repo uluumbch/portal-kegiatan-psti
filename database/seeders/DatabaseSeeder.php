@@ -19,12 +19,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        \App\Models\User::create([
-            "name" => "admin",
-            "email" => "admin@mail.com",
-            "role" => "admin",
-            "password" => bcrypt(12345678)
-        ]);
+        $this->call(RolesSeeder::class);
         // call KegiatanSeeder
         $this->call(KegiatanSeeder::class);
     }

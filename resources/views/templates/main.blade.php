@@ -9,7 +9,7 @@
     @isset($title)
         <title>{{ $title }}</title>
     @else
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Portal PSTI') }}</title>
     @endisset
 
     <!-- Fonts -->
@@ -23,8 +23,8 @@
     <style>
         .rate {
             float: left;
-            height: 46px;
-            padding: 0 10px;
+            height: 68px;
+            padding: 0 0px;
         }
 
         .rate:not(:checked)>input {
@@ -38,7 +38,7 @@
             overflow: hidden;
             white-space: nowrap;
             cursor: pointer;
-            font-size: 30px;
+            font-size: 40px;
             color: #ccc;
         }
 

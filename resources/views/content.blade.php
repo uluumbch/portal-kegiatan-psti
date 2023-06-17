@@ -1,8 +1,8 @@
 @extends('templates.main')
 @section('content')
     <div class="flex flex-col w-full">
-        <div class="mt-2 card bg-base-300 rounded-box place-items-center">
-            <h2 class="text-center font-bold text-2xl">{{ $kegiatan['nama'] }}
+        <div class="card bg-base-300 m-8 p-5 mt-5 place-items-center">
+            <h2 class="text-center font-bold text-2xl mt-5">{{ $kegiatan['nama'] }} <br>
                 @if ($averageRating)
                 <div class="inline-block pt-5">
                 @for($i=1; $i<=$averageRating; $i++)
@@ -13,8 +13,8 @@
                 @endfor
                 </div>
             @endif
-
             </h2>
+            <br>
             <figure><img class="lg:max-w-4xl max-md" src="data:image/jpeg;base64, {{$kegiatan['foto'] }}"
                     alt="{{ $kegiatan['nama'] }}" />
             </figure>
@@ -43,15 +43,15 @@
 
             </div>
         </div>
-        <div class="divider text-center">Tentang Kegiatan</div>
+        <div class=" m-8 divider text-center text-xl font-semibold">Tentang Kegiatan</div>
 
 
-        <article class="w-full prose px-11 lg:prose-xl dark:prose-invert">
+        <article class="w-full p-8">
             {{-- render html  --}}
             {!! $kegiatan['content'] !!}
         </article>
         <div class="">
-            <div class="divider text-center">Share Kegiatan</div>
+            <div class="divider text-center text-xl font-semibold m-8">Share Kegiatan</div>
               <div class="sharing-buttons flex flex-wrap justify-center gap-4 py-5">
                 <a class="border-2 duration-200 ease inline-flex items-center mb-1 mr-1 transition py-3 px-5 rounded-lg btn btn-primary" target="_blank" rel="noopener" href="{{ $shareComponent['facebook']  }}" aria-label="Share on Facebook" draggable="false">
                   <svg aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6">
@@ -98,21 +98,61 @@
 
             <div>
 
-                <div class="comment text-2xl ">
-                    Comment:
+                <div class="comment text-2xl m-8 font-semibold">
+                    Komentar:
                 </div>
-                {{-- <div class="flex justify-between items-center">
+                <!-- {{-- <div class="flex justify-between items-center">
                 Rating
-                </div> --}}
+                </div> --}} -->
+                <div class="divider m-8"></div>
+
+                @if(Auth::user())
+
+
+<form class="m-8" action="{{route('comment.store')}}" method="POST" autocomplete="off">
+  @csrf
+  <input type="hidden" name="post_slug" value="{{$kegiatan->slug}}">
+  <div class="row justify-content-end">
+
+  </div><h1 class="text-lg font-medium">Beri rating dan ulasan untuk kegiatan ini</h1>
+  <div class="form-group row">
+      <div class=" col-sm-6">
+          <input type="hidden" class="form-control" type="text" name="nama" value="{{ Auth::user()->name }}"/>
+      </div>
+      <div class="col-sm-6">
+          <input type="hidden" class="form-control" type="email" name="email" value="{{Auth::user()->email}}" />
+      </div>
+  </div>
+  <div class="form-group row">
+      <div class="col-sm-6 ">
+          <div class="rate">
+              <input type="radio" id="star5" class="rate" name="star_rating" value="5" />
+              <label for="star5" title="text">5 stars</label>
+              <input type="radio"  id="star4" class="rate" name="star_rating" value="4" />
+              <label for="star4" title="text">4 stars</label>
+              <input type="radio" id="star3" class="rate" name="star_rating" value="3" />
+              <label for="star3" title="text">3 stars</label>
+              <input type="radio" id="star2" class="rate" name="star_rating" value="2">
+              <label for="star2" title="text">2 stars</label>
+              <input type="radio" id="star1" class="rate" name="star_rating" value="1" />
+              <label for="star1" title="text">1 star</label>
+          </div>
+      </div>
+  </div>
+  <div class="form-group row ">
+      <div class="w-full ">
+          <textarea class="form-control resize rounded-md w-full h-32" name="isi" rows="6 " placeholder="Berikan komentar untuk kegiatan" maxlength="2000"></textarea>
+      </div>
+  </div>
+  <div class="mt-3 ">
+      <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">SUBMIT</button>
+  </div>
+</form>
+@endif
 
                 @foreach($comments as $comment)
-                <div class="flex flex-row p-6">
-                    @if($comment['foto'])
-                    <img src="{{ $comment['foto'] }}" width="50" height="40"  alt="Gambar">
-                    @else
-                    <img src="{{ asset('img/profil.png') }}" width="50" height="40"  alt="Gambar">
-                    @endif
-
+                <div class="flex flex-row m-10 object-containn">
+                    <img src="{{ asset('img/profil.png') }}"  alt="Gambar">
                     {{-- <div class="avatar">
                       <div class="w-24 rounded-full">
                         <img src="data:image/jpeg;base64, {{$kegiatan['foto'] }}">
@@ -123,7 +163,7 @@
 
                       <div class="flex justify-between items-center">
                           <div class="flex flex-row items-center">
-                            <span class="mr-2">{{ $comment['nama'] }}</span>
+                            <span class="mr-2 font-semibold">{{ $comment['nama'] }}</span>
                             <small class="c-badge">{{ $comment['email'] }}</small>
                           </div>
 
@@ -133,7 +173,7 @@
                             </div>
 
                             @for($i=1; $i<=$comment->star_rating; $i++)
-                              <span type="radio" class="h-5 w-5 mask mask-star-2 bg-yellow-400"></span>
+                              <span type="radio" class="h-5 w-5 mask mask-star-2 bg-green-400"></span>
                             @endfor
                             @for($i = 5 - $comment->star_rating; $i>0; $i--)
                             <span type="radio" class="h-5 w-5 mask mask-star-2 bg-slate-400"></span>
@@ -151,6 +191,7 @@
 
                 @endforeach
             </div>
+
 
             @if(Auth::user())
 
@@ -207,6 +248,7 @@
             @endif
 
             @csrf
+
             </div>
 
     </div>

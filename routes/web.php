@@ -7,6 +7,7 @@ use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Kegiatan;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,7 @@ Route::get('/', function () {
         'kegiatan' => Kegiatan::simplePaginate(6)
     ]);
 });
+
 
 
 Route::get('tentang-kami', function () {
@@ -47,7 +49,7 @@ Route::get('/post/{slug}', [KegiatanController::class, 'show'])->name('post.show
 // });
 
 // add middleware for user and prefix /user
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('user.profile.destroy');

@@ -14,15 +14,12 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('email');
+            $table->foreignId('kegiatan_id')->constrained('kegiatan')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->text('isi');
             $table->integer('star_rating');
-            $table->string('post_slug');
-            // $table->longText('foto')->nullable();
             $table->timestamps();
         });
-        DB::statement('ALTER TABLE comments ADD foto LONGBLOB AFTER email');
     }
 
     /**
