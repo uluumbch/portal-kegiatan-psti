@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AfterRegister;
 use App\Models\Comment;
 use App\Models\Kegiatan;
 use App\Models\PendaftarKegiatan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 use PhpParser\Node\Expr\FuncCall;
 
 class KegiatanController extends Controller
@@ -174,6 +176,9 @@ class KegiatanController extends Controller
             'kegiatan_id' => $kegiatan_id,
         ];
         PendaftarKegiatan::create($data);
+        $details = Kegiatan::find($kegiatan_id);
+        Mail::to(auth()->user()->email)->send(new AfterRegister($details));
         return redirect(route('kegiatanku'))->with('status', 'Pendaftaran berhasil!');
     }
+
 }

@@ -2,11 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KegiatanController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Kegiatan;
-
 
 /*
 |--------------------------------------------------------------------------
