@@ -27,7 +27,10 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
-
+        // add foto
+        if ($request->hasFile('foto')) {
+            $request->user()->foto = base64_encode(file_get_contents($request->file('foto')->getRealPath()));
+        }
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }

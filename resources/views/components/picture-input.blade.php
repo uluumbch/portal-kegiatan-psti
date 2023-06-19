@@ -1,7 +1,8 @@
+@props(['src', 'name'])
 <div class="flex items-center justify-between" x-data="preview()">
     <div class="avatar">
         <div class="w-24 rounded-full">
-          <img id="preview"  src="https://www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png" alt="Profile Picture Default Png@nicepng.com">
+          <img id="preview" src="{{ $src ?? 'https://www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png' }}" alt="{{ $name ?? 'Profile Picture Default Png@nicepng.com' }}" class="w-full h-full rounded-full">
         </div>
     </div>
     <div class="">
