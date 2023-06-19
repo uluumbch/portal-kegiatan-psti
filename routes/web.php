@@ -50,13 +50,13 @@ Route::get('/post/{slug}', [KegiatanController::class, 'show'])->name('post.show
 
 // add middleware for user and prefix /user
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('user.profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/comment-store/{slug}', [CommentController::class, 'store'])->name('comment.store');
     Route::delete('/comment/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
 
-    Route::resource('user', UserController::class);
+    // Route::resource('user', UserController::class);
 
     Route::get('/dashboard', [KegiatanController::class, 'index'])->name('dashboard');
 

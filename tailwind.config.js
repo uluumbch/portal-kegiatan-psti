@@ -1,3 +1,4 @@
+const daisyui = require('daisyui');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
@@ -22,4 +23,15 @@ module.exports = {
         require("daisyui"),
         require('@tailwindcss/typography')
     ],
+
+    daisyui: {
+        // themes: [
+        //     {
+        //         // light: {
+        //         //     ...require("daisyui/src/colors")["[data-theme=light]"],
+        //         //     primary: "#63C49A",
+        //         // }
+        //     }
+        // ]
+    },
 };

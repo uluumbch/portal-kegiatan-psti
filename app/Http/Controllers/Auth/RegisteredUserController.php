@@ -45,6 +45,8 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+        // add spatie role
+        $user->assignRole('user');
 
         Auth::login($user);
 

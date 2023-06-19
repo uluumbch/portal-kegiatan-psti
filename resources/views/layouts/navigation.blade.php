@@ -65,16 +65,9 @@
                     <x-slot name="content">
                         <!-- Account Management -->
 
-                        {{-- if login as admin route to admin else to user --}}
-                        @if (Auth::user()->role == 'admin')
-                            <x-dropdown-link :href="route('admin.profile.edit')">
-                                {{ __('Dashboard') }}
-                            </x-dropdown-link>
-                        @else
-                        <x-dropdown-link :href="route('user.profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-                        @endif
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -122,16 +115,9 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                {{-- if login as admin route to admin else to user --}}
-                @if (Auth::user()->role == 'admin')
-                    <x-responsive-nav-link :href="route('admin.profile.edit')">
-                        {{ __('Profile') }}
-                    </x-responsive-nav-link>
-                @else
-                <x-responsive-nav-link :href="route('user.profile.edit')">
+                <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-                @endif
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -141,8 +127,8 @@
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
+                </div>
                 </form>
             </div>
-        </div>
     </div>
 </nav>

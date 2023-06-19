@@ -13,6 +13,22 @@
                 {{ session('status') }}
             </div>
         @endif
+        
+            @foreach ($kegiatanTerdaftar as $item)
+        <div class="card card-side my-5" data-theme="light">
+            <figure class="ml-3 w-1/6">
+                <img class="max-h-32" src="data:image/jpeg;base64,{{ $item->kegiatan->foto }}" alt="{{ $item->nama }}" />
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title">{{ $item->kegiatan->nama }}</h2>
+                <p>{{ $item->kegiatan->deskripsi }}</p>
+                <div class="card-actions justify-end">
+                    <a href="{{ route('post.show',$item->kegiatan->slug) }}">
+                        <button class="btn btn-primary">Detail</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
-@dd($kegiatanTerdaftar)
 </x-app-layout>

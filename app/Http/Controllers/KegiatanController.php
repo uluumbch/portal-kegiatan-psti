@@ -64,8 +64,8 @@ class KegiatanController extends Controller
         $kegiatan->save();
 
 
-        // redirect to admin page
-        return redirect('/admin')->with('status', 'Kegiatan berhasil ditambahkan!');
+        // redirect to dashboard page
+        return redirect(route('dashboard'))->with('status', 'Kegiatan berhasil ditambahkan!');
     }
 
     /**
@@ -93,7 +93,6 @@ class KegiatanController extends Controller
                     'kegiatan' => $kegiatan,
                     'averageRating' => 4,
                     'shareComponent' => $shareButton,
-                    'comments' => $comments
                 ]);
     }
 
@@ -102,7 +101,7 @@ class KegiatanController extends Controller
      */
     public function edit(String $id)
     {
-        return view('admin.create-edit', [
+        return view('dashboard.create-edit', [
             'kegiatan' => Kegiatan::find($id),
             'title' => 'Edit'
         ]);
@@ -144,7 +143,7 @@ class KegiatanController extends Controller
 
         $kegiatan->save();
 
-        return redirect('/admin')->with('status', 'Kegiatan berhasil diubah!');
+        return redirect(route('dashboard'))->with('status', 'Kegiatan berhasil diubah!');
     }
 
 
@@ -154,7 +153,7 @@ class KegiatanController extends Controller
     public function destroy(String $id)
     {
         Kegiatan::destroy($id);
-        return redirect('/admin')->with('status', 'Kegiatan berhasil dihapus!');
+        return redirect(route('dashboard'))->with('status', 'Kegiatan berhasil dihapus!');
     }
 
     public function kegiatan()
@@ -174,8 +173,7 @@ class KegiatanController extends Controller
             'user_id' => auth()->user()->id,
             'kegiatan_id' => $kegiatan_id,
         ];
-        dd($data);
-        // PendaftarKegiatan::create($data);
+        PendaftarKegiatan::create($data);
         return redirect(route('kegiatanku'))->with('status', 'Pendaftaran berhasil!');
     }
 }

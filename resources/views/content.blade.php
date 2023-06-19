@@ -150,7 +150,7 @@
         {{-- end share button --}}
 
         {{-- tampil komentar --}}
-        <div class="w-full p-8">
+        <div class="w-full px-8">
             <div class="divider text-center text-xl font-semibold">Komentar</div>
             @forelse ($kegiatan->comments as $comment)
                 <div class="flex flex-col mt-8">
@@ -161,7 +161,7 @@
                         </div>
                         <div class="">
                             {{-- check if this comment is owned by this user --}}
-                            @if ($comment->user_id == Auth::user()->id)
+                            @if (Auth::user() && Auth::user()->id == $comment->user_id)
                                 <form action="{{ route('comment.destroy', $comment->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
@@ -183,6 +183,7 @@
                         <p class="">{{ $comment->created_at->diffForHumans() }}</p>
                         <p class="">{{ $comment->created_at->format('d M Y') }}</p>
                     </div>
+                    <div class="divider"></div>
                 </div>
             @empty
                 <div class="flex flex-col justify-center items-center mt-8">
@@ -193,12 +194,18 @@
         {{-- end tampil komentar --}}
 
         {{-- form tambah komentar --}}
-        <div class="my-2 p-8">
+        <div class="px-8 pb-8">
             @if (Auth::user())
                 <form action="{{ route('comment.store', $kegiatan->slug) }}" method="post">
                     @csrf
-                    <div class="rounded max-w-lg mx-auto">
+                    <div class="flex">
+                            <img class="w-16 h-16 rounded-full"
+                                src="data:image/jpeg;base64, {{ Auth::user()->foto }}" alt="">
+                            <div class="text-center font-semibold my-auto pl-4">{{ Auth::user()->name }}</div>
+                    </div>
 
+                    <div class="rounded mt-2 mx-auto">
+                        
                         <textarea class="w-full px-3 py-2  textarea textarea-ghost textarea-bordered" name="isi"
                             placeholder="Tulis komentar" rows="4"></textarea>
                         @error('isi')
@@ -213,13 +220,7 @@
                             </div>
                         @endif
                         <div class="flex flex-row justify-between items-center mt-4">
-                            <div class="flex flex-row justify-center items-center">
-                                <div class="flex ">
-                                    <img class="w-16 h-16 rounded-full"
-                                        src="data:image/jpeg;base64, {{ Auth::user()->foto }}" alt="">
-                                    <div class="text-center font-semibold my-auto pl-4">{{ Auth::user()->name }}</div>
-                                </div>
-                            </div>
+                            
 
                             <button
                                 class="border-2 duration-200 ease inline-flex items-center mb-1 mr-1 transition py-3 px-5 rounded-lg btn btn-primary"

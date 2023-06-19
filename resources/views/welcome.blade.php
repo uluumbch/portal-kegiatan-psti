@@ -1,8 +1,7 @@
 @extends('templates.main')
 @section('content')
     {{-- hero --}}
-    <div class="hero lg:!place-items-start min-h-screen  bg-myimage"
-    >
+    <div class="relative hero justify-between lg:!place-items-start min-h-screen  bg-myimage">
         <div class="hero-content flex-col lg:my-auto text-white">
             <div>
                 <h1 class="text-5xl font-bold max-w-xl">Portal Informasi Kegiatan PSTI</h1>
@@ -10,8 +9,17 @@
                     Jangan Sampai Ketinggalan Informasi Tentang Kegiatan Menarik di PSTI! Dengan PortIKe PSTI Selalu
                     Dapatkan Informasi Terbaru Event yang Akan Diadakan!
                 </p>
-                <button class="btn btn-primary" id="eksplor">Eksplor Event</button>
+                {{-- <button class="btn btn-primary" id="eksplor">Eksplor Event</button> --}}
             </div>
+        </div>
+        <div class="absolute flex flex-col gap-3 text-white bottom-10 left-[50%] transform translate-x-[-50%]">
+            <span>
+                Eksplor Kegiatan
+            </span>
+            <svg class="animate-bounce h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
+              </svg>
+              
         </div>
     </div>
 
@@ -62,13 +70,5 @@
             {{ $kegiatan->links() }}
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $("#eksplor").click(function() {
-                $('html, body').animate({
-                    scrollTop: $("#event").offset().top
-                }, 1000);
-            });
-        })
-    </script>
+    
 @endsection

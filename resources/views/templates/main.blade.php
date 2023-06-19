@@ -15,8 +15,8 @@
     <!-- Fonts -->
 
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script> --}}
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> --}}
     @vite('resources/css/app.css')
     @vite('resources/css/mybg.css')
     @vite('resources/js/app.js')
@@ -81,10 +81,49 @@
 
 </head>
 
-<body class="container mx-auto">
-    {{-- navigation --}}
+<body>
     @include('templates.navigation')
+    {{-- navigation --}}
+    <div class="container mx-auto">
+        {{-- content --}}
+        @yield('content')
+    </div>
 
+        {{-- footer --}}
+        @include('templates.footer')
+
+        {{-- script --}}
+        <script>
+            // tranlate to jquery
+            $(document).ready(function() {
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+                const theme = document.documentElement.getAttribute('data-theme');
+                console.log(theme);
+                if (theme === 'dark') {
+                    $('input[name="tema"]').prop('checked', true);
+                } else {
+                    $('input[name="tema"]').prop('checked', false);
+                }
+        
+                // add event listener when checkbox clicked
+                $('input[name="tema"]').click(function() {
+        
+                    // if checkbox checked then set theme to dark else light
+                    if ($(this).is(':checked')) {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'light');
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
+            });
+        </script>
+        
 </body>
 
 </html>

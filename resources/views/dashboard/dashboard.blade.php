@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class=" overflow-hidden shadow-sm sm:rounded-lg">
                 {{-- <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div> --}}
@@ -37,12 +37,12 @@
                         <tbody>
                             @foreach ($kegiatan as $item)
                                 <tr>
-                                    <td class="w-1/3">
+                                    <td class="">
                                         <div class="flex items-center space-x-3">
                                             <div class="avatar">
                                                 <div class="mask mask-squircle w-12 h-12">
                                                     <img src="data:image/jpeg;base64,{{ $item->foto }}"
-                                                        alt="Avatar Tailwind CSS Component" />
+                                                        alt="{{ $item->nama }}" />
                                                 </div>
                                             </div>
                                             <div>
@@ -51,28 +51,30 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="w-2/3 break-words whitespace-normal">
+                                    <td class="break-words whitespace-normal">
                                         {{-- show only 70 character --}}
                                         {{ Str::limit($item->deskripsi, 70, '...') }}
                                     </td>
-                                    <th class="flex gap-1">
-                                        @can('update event')
-                                            <a href="{{ route('admin.edit', $item) }}"
-                                                class="btn btn-secondary text-secondary-content btn-sm">edit</a>
-                                        @endcan
-                                        @can('delete event')
-                                            <form action="{{ route('admin.destroy', $item) }}" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit"
-                                                    class="btn btn-error btn-sm text-error-content">hapus</button>
-                                            </form>
-                                        @endcan
-                                        @can('read event')
-                                            <a href="{{ route('post.show', $item->slug) }}"
-                                                class="btn btn-primary btn-sm">lihat</a>
-                                        @endcan
-                                    </th>
+                                        <td class="">
+                                            @can('update event')
+                                                <a href="{{ route('admin.edit', $item) }}"
+                                                    class="btn btn-secondary text-secondary-content btn-sm">edit</a>
+                                            @endcan
+                                            @can('delete event')
+                                                <form action="{{ route('admin.destroy', $item) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit"
+                                                        class="btn btn-error btn-sm text-error-content">hapus</button>
+                                                </form>
+                                            @endcan
+                                            @can('read event')
+                                                <a href="{{ route('post.show', $item->slug) }}"
+                                                    class="btn btn-primary btn-sm">lihat</a>
+                                            @endcan
+                                        
+                                    </td>
+                                   
                                 </tr>
                             @endforeach
 
@@ -81,6 +83,7 @@
                     </table>
                     {{ $kegiatan->links() }}
                 </div>
+               
             </div>
         </div>
     </div>
