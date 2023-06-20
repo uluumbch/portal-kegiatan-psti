@@ -4,16 +4,7 @@
     <div class="flex flex-col w-full">
         <div class="card bg-base-300 m-8 p-5 mt-5 place-items-center">
             <h2 class="text-center font-bold text-2xl mt-5">{{ $kegiatan['nama'] }} <br>
-                @if ($averageRating)
-                    <div class="inline-block pt-5">
-                        @for ($i = 1; $i <= $averageRating; $i++)
-                            <span type="radio" class="h-5 w-5 mask mask-star-2 bg-yellow-400"></span>
-                        @endfor
-                        @for ($i = 5 - $averageRating; $i > 0; $i--)
-                            <span type="radio" class="h-5 w-5 mask mask-star-2 bg-slate-400"></span>
-                        @endfor
-                    </div>
-                @endif
+               
             </h2>
             <br>
             <figure><img class="lg:max-w-4xl max-md" src="data:image/jpeg;base64, {{ $kegiatan['foto'] }}"

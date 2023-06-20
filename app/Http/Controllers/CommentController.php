@@ -51,7 +51,7 @@ class CommentController extends Controller
         ];
         Comment::create($data);
 
-        return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
+        return redirect()->route('post.show', $slug)->with('success', 'Komentar berhasil ditambahkan.');
 
     }
 
