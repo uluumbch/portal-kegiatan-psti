@@ -12,10 +12,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class=" overflow-hidden shadow-sm sm:rounded-lg">
-                {{-- <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div> --}}
-                {{-- check if user loged in is admin --}}
+                {{-- show alert --}}
+                @if(session()->has('status'))
+                <div class="alert alert-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>{{ session('status') }}</span>
+                  </div>
+                @endif
                 
                 <div class="">
                     @if (Auth::user()->hasRole('user'))
@@ -90,7 +93,7 @@
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit"
-                                                    class="btn btn-error btn-sm text-error-content w-full my-1">hapus</button>
+                                                    class="btn btn-error btn-sm text-error-content w-full my-1 delete">hapus</button>
                                             </form>
                                         
                                             <a href="{{ route('admin.pendaftar', $item->id) }}"
