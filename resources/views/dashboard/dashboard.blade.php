@@ -51,9 +51,9 @@
                     </div>
                 @endcan
                 <div class="w-full">
-                    <table class="table w-full">
+                    <table class="table w-full bg-base-100">
                         <!-- head -->
-                        <thead>
+                        <thead class="bg-base-200">
                             <tr>
                                 <th>Kegiatan</th>
                                 <th>Deskripsi</th>
@@ -62,7 +62,7 @@
                         </thead>
                         <tbody>
                             @foreach ($kegiatan as $item)
-                                <tr>
+                                <tr class="">
                                     <td class="">
                                         <div class="flex items-center space-x-3">
                                             <div class="avatar">
@@ -93,8 +93,8 @@
                                                     class="btn btn-error btn-sm text-error-content w-full my-1">hapus</button>
                                             </form>
                                         
-                                            <a href="{{ route('post.show', $item->slug) }}"
-                                                class="btn btn-primary btn-sm w-full my-1">lihat</a>
+                                            <a href="{{ route('admin.pendaftar', $item->id) }}"
+                                                class="btn btn-primary btn-sm w-full my-1">lihat pendaftar</a>
                                         
 
                                     </td>

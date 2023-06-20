@@ -55,7 +55,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/comment/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
 
     // Route::resource('user', UserController::class);
-
     Route::get('/dashboard', [KegiatanController::class, 'index'])->name('dashboard');
 
     Route::get('/kegiatanku', [KegiatanController::class, 'kegiatan'])->name('kegiatanku');
@@ -63,6 +62,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/daftarkegiatan/{kegiatan_id}', [KegiatanController::class, 'daftarkegiatan'])->name('daftarkegiatan');
 
     Route::resource('admin', KegiatanController::class)->except(['index']);
+    Route::get('/admin/{id}/pendaftar', [KegiatanController::class, 'pendaftarKegiatan'])->name('admin.pendaftar');
+    
 });
 
 

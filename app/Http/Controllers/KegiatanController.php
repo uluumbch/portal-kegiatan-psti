@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
+use PhpParser\Node\Expr\Cast\String_;
 use PhpParser\Node\Expr\FuncCall;
 
 class KegiatanController extends Controller
@@ -179,6 +180,12 @@ class KegiatanController extends Controller
         $details = Kegiatan::find($kegiatan_id);
         Mail::to(auth()->user()->email)->send(new AfterRegister($details));
         return redirect(route('kegiatanku'))->with('status', 'Pendaftaran berhasil!');
+    }
+
+    public function pendaftarKegiatan(String $kegiatan_id)
+    {
+        $pendaftarKegiatan = PendaftarKegiatan::where('kegiatan_id', $kegiatan_id)->with('user','kegiatan')->get();
+        return view('dashboard.pendaftar-kegiatan', compact('pendaftarKegiatan'));
     }
 
 }
