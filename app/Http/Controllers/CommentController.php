@@ -42,11 +42,8 @@ class CommentController extends Controller
 
         $kegiatan = Kegiatan::where('slug', $slug)->first();
         $data = [
-            'nama' => auth()->user()->name,
-            'user_id' => auth()->user()->id, // 'user_id' => '1
-            'email' => auth()->user()->email,
+            'user_id' => auth()->user()->id, 
             'isi' => $request->isi,
-            'star_rating' => 5, 
             'kegiatan_id' => $kegiatan->id,
         ];
         Comment::create($data);
