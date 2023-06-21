@@ -54,7 +54,7 @@ untuk dapat menginstal projek ini ada beberapa prasyarat yang harus dipenuhi, pe
     ```sh
     php -r "copy('.env.example', '.env');"
     ```
-7. Atur konfigurasi untuk datbase pada file `.env` di baris berikut
+7. Atur konfigurasi untuk database pada file `.env` di baris berikut
     ```
     DB_HOST=localhost
     DB_PORT=3306
@@ -68,5 +68,5 @@ untuk dapat menginstal projek ini ada beberapa prasyarat yang harus dipenuhi, pe
     ```sh
     php artisan serve
     ```
-
+    Development server akan berjalan dan dapat dibuka di link localhost:8000(Dapat berbeda pada perangkat anda)
 
