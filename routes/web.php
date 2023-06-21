@@ -19,7 +19,7 @@ use App\Models\Kegiatan;
 
 Route::get('/', function () {
     return view('welcome', [
-        'kegiatan' => Kegiatan::simplePaginate(6)
+        'kegiatan' => Kegiatan::orderBy('created_at', 'desc')->simplePaginate(5)
     ]);
 });
 
