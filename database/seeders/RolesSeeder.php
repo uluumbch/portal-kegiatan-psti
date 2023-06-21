@@ -17,6 +17,7 @@ class RolesSeeder extends Seeder
     {
         // reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
         // create permissions
         Permission::create(['name' => 'create event']);
