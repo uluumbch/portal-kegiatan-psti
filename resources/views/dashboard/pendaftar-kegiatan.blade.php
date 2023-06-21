@@ -1,5 +1,16 @@
 <x-app-layout>
+    {{-- scheck if pendaftar kegiatan is empty --}}
+    @if (count($pendaftarKegiatan) == 0)
+        <div class="flex items-center justify-center h-screen">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold">Belum ada pendaftar</h1>
+                <a href="{{ route('dashboard') }}"
+                    class="btn btn-primary btn-sm w-full my-1">Kembali</a>
+            </div>
+        </div>
+    @else
     <h2>Pendaftar pada kegiatan: {{ $pendaftarKegiatan[0]->kegiatan->nama }}</h2>
+    <span>Jumlah Pendaftar : {{ count($pendaftarKegiatan) }}</span>
     <div class="overflow-x-auto">
         <table class="table">
           <!-- head -->
@@ -47,4 +58,5 @@
           
         </table>
       </div>
+    @endif
 </x-app-layout>

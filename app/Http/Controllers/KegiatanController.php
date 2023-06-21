@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AfterRegister;
-use App\Models\Comment;
 use App\Models\Kegiatan;
 use App\Models\PendaftarKegiatan;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
-use PhpParser\Node\Expr\Cast\String_;
-use PhpParser\Node\Expr\FuncCall;
+
 
 class KegiatanController extends Controller
 {
@@ -76,11 +72,7 @@ class KegiatanController extends Controller
      */
     public function show($slug)
     {
-        // $rating = Comment::where('post_slug', $slug)->pluck('star_rating');
-        // $averageRating = $rating->average();
-        // $averageRating = round($averageRating);
         $kegiatan = Kegiatan::where('slug', $slug)->with('comments', 'pendaftarKegiatan')->firstOrFail();
-        $comments = $kegiatan->comments()->orderBy('created_at', 'desc')->get();
         $shareButton = \Share::page(
             route('post.show', $slug),
             'PSTI FT ULM Memiliki Kegiatan baru. Lihat disini : ' . $kegiatan->nama

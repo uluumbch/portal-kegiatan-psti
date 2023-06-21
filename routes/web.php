@@ -33,18 +33,6 @@ Route::get('tentang-kami', function () {
 Route::get('/post/{slug}', [KegiatanController::class, 'show'])->name('post.show');
 
 
-// Route::get('/post/{slug}/comment/create', [CommentController::class, 'create'])->name('comment.create');
-// Route::post('/post/{slug}/comment', [CommentController::class, 'store'])->name('comment.store');
-
-
-// add middleware for admin and prefix /admin
-// Route::middleware('admin')->prefix('admin')->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('admin.profile.destroy');
-
-
-// });
 
 // add middleware for user and prefix /user
 Route::middleware(['auth', 'verified'])->group(function () {
