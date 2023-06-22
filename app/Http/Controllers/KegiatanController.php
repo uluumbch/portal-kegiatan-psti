@@ -16,7 +16,8 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        $kegiatan = Kegiatan::orderBy('created_at', 'asc')->simplePaginate(5);
+        // return kegiatan order by newset created
+        $kegiatan = Kegiatan::orderBy('created_at', 'desc')->simplePaginate(5);
         
         return view('dashboard.dashboard', compact('kegiatan'));
     }
